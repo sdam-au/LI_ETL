@@ -1,0 +1,341 @@
+---
+title: "Social diversity in the EDH dataset"
+author: "Petra Hermankova"
+date: "11/01/2021"
+output:
+  html_document:
+    theme: united
+    toc: yes
+    toc_float: true
+    number_sections: true
+    toc_depth: 2
+    df_print: paged
+---
+
+# Initial setup
+
+## Setup of the environment:
+
+```{r setup, echo=TRUE, message=FALSE}
+devtools::install_github("sdam-au/sdam") # loading SDAM custom package, if not working try devtools::install_github("mplex/cedhar", subdir="pkg/sdam")
+#devtools::install_github("mplex/cedhar", subdir="pkg/sdam")
+library(tidyverse)
+library(sdam)
+library(jsonlite)
+library(leaflet)
+library(googlesheets4)
+```
+
+## Loading data
+1. Load the dataset, if you have Sciencedata.dk credentials
+
+```{r, echo=FALSE}
+mycred_secret<- readLines("~/mysecret.txt")
+```
+
+```{r, loading data}
+resp = request("EDH_text_lemmatized_2021-01-12.json", path="/sharingin/648597@au.dk/SDAM_root/SDAM_data/EDH/public", method="GET", cred=mycred_secret)
+```
+
+```{r, echo=FALSE}
+remove(mycred_secret)
+```
+
+2. Make a list and tibble from the request function
+```{r}
+list_json <- jsonlite::fromJSON(resp)
+EDH_tibble <- as_tibble(list_json)
+```
+
+3. Display the first 6 records
+```{r}
+head(EDH_tibble)
+```
+
+# Vocabulary specific search of lemmatized inscriptions
+
+## Horizontal stratification - occupations
+
+Dictionary of occupations based on Walzting 1900, 1-128 and on Petrikovits 1981a, 83-115.
+They were manually transcribed into a spreasheet, categorised based on Harris 2002, and cross checked with the entries in Lewis-Short dictionary.
+
+```{r}
+gs4_deauth() # de-uthorized mode, no need of authentication token (if the spreadsheet is public)
+occup_dict<- read_sheet("https://docs.google.com/spreadsheets/d/1nONTEwp42CVnq3iCiONrFbJedIcYtBV-l4Bil5mU7Eo/edit?usp=sharing", sheet = "Occupation")
+```
+
+### Counting occurences
+```{r}
+occupations<- EDH_tibble %>%
+  count(lemma, sort = TRUE) %>%
+  filter(lemma %in% occup_dict$Term | lemma %in% occup_dict$Vocab_nom_sg) %>% 
+  na.omit() %>% 
+  print()
+```
+
+
+
+### Subsetting the dataset containing the searcher terms in lemma
+```{r}
+occupations_text <- EDH_tibble %>%
+  filter(lemma %in% occup_dict$Term | lemma %in% occup_dict$Vocab_nom_sg) %>% 
+  print()
+```
+
+### Location
+
+#### Province
+```{r}
+occupations_text %>% 
+  count(province_label_clean, sort=TRUE)
+```
+#### Findspot
+```{r}
+occupations_text %>% 
+  count(findspot_ancient_clean, sort=TRUE)
+```
+
+
+### Mapping the occupations inscriptions
+
+```{r} 
+occupations_spatial<- occupations_text %>% 
+  separate(col = coordinates, into = c("longitude", "latitude"), sep = ",")
+
+# unlist coordinates and preparing them for leaflet
+occupations_spatial$latitude <- as.numeric(str_replace(occupations_spatial$latitude, pattern = "\\)", replacement=""))
+occupations_spatial$longitude <- as.numeric(str_replace(occupations_spatial$longitude, pattern = "c\\(", replacement=""))
+
+# how many have longitude
+length(na.omit(occupations_spatial$longitude))
+```
+
+```{r}
+map_occupations <-leaflet(width="100%") %>%
+  #addProviderTiles("Stamen.Watercolor")%>% 
+  #addProviderTiles("Esri.WorldTopoMap", group = "Topo") %>%
+  addProviderTiles("Esri.WorldImagery", group = "ESRI Aerial") %>% # Add CartoDB map tiles
+  setView(lng = 22.326743, lat = 46.897122, zoom = 4 ) %>%
+  addCircles(lng = occupations_spatial$longitude, 
+             lat = occupations_spatial$latitude, radius = 10, fill = TRUE, color= "purple" , fillColor = "purple",
+             popup = paste0("<b> InscriptionID: </b>", occupations_spatial$id_num, 
+                            "<br><b> Ancient findspot: </b>", occupations_spatial$findspot_ancient_clean,
+                             "<br><b> Type of inscription: </b>", occupations_spatial$type_of_inscription_clean,
+                              "<br><b> Type of monument: </b>", occupations_spatial$type_of_monument_clean,
+                              "<br><b> Not before (date): </b>", occupations_spatial$not_before,
+                              "<br><b> Not after (date): </b>", occupations_spatial$not_after
+                                ),
+) %>% 
+addLegend(position = "topright",
+  colors = c("Purple"),
+  labels = c("Inscription findspot"), opacity = 1,
+  title = "Position of inscriptions with occupations (EDH)" 
+)
+map_occupations
+```
+
+
+Cities from Hanson 2016
+```{r}
+cities<- as.data.frame(read_csv("http://oxrep.classics.ox.ac.uk/oxrep/docs/Hanson2016/Hanson2016_Cities_OxREP.csv"))
+```
+Creating buffer zones around cities
+
+```{r}
+library(raster)
+library(sf)
+
+#set projection as EPSG 4326
+
+cities_geo<- st_as_sf(cities, coords = c("Longitude (X)", "Latitude (Y)"))
+cities_geo<- st_set_crs(cities_geo, 3035) 
+cities_geo<- st_transform(cities_geo, 3035, "+units=m")
+
+st_crs(cities_geo)
+
+#Set buffer zone to 5 km
+cities_5km<- st_buffer(cities_geo, dist = 0.05)
+```
+
+```{r}
+plot_sf(cities_geo)
+plot(st_geometry(cities_5km), col = "yellow", add = TRUE)
+#plot(st_geometry(cities_geo), pch=20, cex = 0.1, add = TRUE)
+```
+
+Select all inscriptions within the buffer zone:
+
+Spatial join
+```{r}
+occupations_spatial %>% 
+  filter()
+```
+
+
+
+
+
+
+
+```{r}
+map_occupations_cities <-leaflet(width="100%") %>%
+  #addProviderTiles("Stamen.Watercolor")%>% 
+  addProviderTiles("Esri.WorldTopoMap", group = "Topo") %>%
+  #addProviderTiles("Esri.WorldImagery", group = "ESRI Aerial") %>% # Add CartoDB map tiles
+  setView(lng = 22.326743, lat = 46.897122, zoom = 4 ) %>%
+  addCircles(lng = occupations_spatial$longitude, 
+             lat = occupations_spatial$latitude, radius = 10, fill = TRUE, color= "purple" , fillColor = "purple",
+             popup = paste0("<b> InscriptionID: </b>", occupations_spatial$id_num, 
+                            "<br><b> Ancient findspot: </b>", occupations_spatial$findspot_ancient_clean,
+                             "<br><b> Type of inscription: </b>", occupations_spatial$type_of_inscription_clean,
+                              "<br><b> Type of monument: </b>", occupations_spatial$type_of_monument_clean,
+                              "<br><b> Not before (date): </b>", occupations_spatial$not_before,
+                              "<br><b> Not after (date): </b>", occupations_spatial$not_after
+                                ),
+) %>% 
+  addCircles(lng = cities$`Longitude (X)`, 
+             lat = cities$`Latitude (Y)`, fill = TRUE, radius=10) %>% 
+  addLegend(position = "topright",
+    colors = c("Purple"),
+    labels = c("Inscription findspot"), opacity = 1,
+    title = "Position of inscriptions with occupations (EDH)" 
+)
+map_occupations_cities
+```
+
+
+
+
+
+## Vertical stratification - professional organisations
+
+Dictionary of professional organisations based on Walzting 1900, 1-128.
+
+```{r}
+gs4_deauth() # de-uthorized mode, no need of authentication token (if the spreadsheet is public)
+organisation_dict<- read_sheet("https://docs.google.com/spreadsheets/d/1nONTEwp42CVnq3iCiONrFbJedIcYtBV-l4Bil5mU7Eo/edit?usp=sharing", sheet ="Organisation")
+organisation_dict
+```
+
+
+### Counting occurences
+```{r}
+organisations<- EDH_tibble %>%
+  count(lemma, sort = TRUE) %>%
+  filter(lemma %in% organisation_dict$Term ) %>% 
+  na.omit() %>% 
+  print()
+```
+
+### Subsetting the dataset containing the organisational terms in lemma
+```{r}
+organisations_text <- EDH_tibble %>%
+  filter(lemma %in% organisation_dict$Term) %>% 
+  print()
+```
+
+```{r}
+organisations_text %>% 
+  count(findspot_ancient_clean, sort=TRUE)
+```
+
+
+```{r}
+organisations_text %>% 
+  count(lemma, token, sort=TRUE)
+```
+
+
+### Mapping the organisations inscriptions
+
+```{r} 
+organisations_spatial<- organisations_text %>% 
+  separate(col = coordinates, into = c("longitude", "latitude"), sep = ",")
+
+# unlist coordinates and preparing them for leaflet
+organisations_spatial$latitude <- as.numeric(str_replace(organisations_spatial$latitude, pattern = "\\)", replacement=""))
+organisations_spatial$longitude <- as.numeric(str_replace(organisations_spatial$longitude, pattern = "c\\(", replacement=""))
+
+# how many have longitude
+length(na.omit(organisations_spatial$longitude))
+```
+
+
+```{r}
+map_organisations <-leaflet(width="100%") %>%
+  #addProviderTiles("Stamen.Watercolor")%>% 
+  #addProviderTiles("Esri.WorldTopoMap", group = "Topo") %>%
+  addProviderTiles("Esri.WorldImagery", group = "ESRI Aerial") %>% # Add CartoDB map tiles
+  setView(lng = 22.326743, lat = 46.897122, zoom = 4 ) %>%
+  addCircles(lng = organisations_spatial$longitude, 
+             lat = organisations_spatial$latitude, radius = 10, fill = TRUE, color= "yellow" , fillColor = "yellow",
+             popup = paste0("<b> InscriptionID: </b>", organisations_spatial$id_num, 
+                            "<br><b> Ancient findspot: </b>", organisations_spatial$findspot_ancient_clean,
+                             "<br><b> Type of inscription: </b>", organisations_spatial$type_of_inscription_clean,
+                              "<br><b> Type of monument: </b>", organisations_spatial$type_of_monument_clean,
+                              "<br><b> Not before (date): </b>", organisations_spatial$not_before,
+                              "<br><b> Not after (date): </b>", organisations_spatial$not_after
+                                ),
+) %>% 
+addLegend(position = "topright",
+  colors = c("Yellow"),
+  labels = c("Inscription findspot"), opacity = 1,
+  title = "Position of inscriptions with organisations (EDH)" 
+)
+map_organisations
+```
+
+
+
+
+
+
+
+# Search for Road-related inscription
+
+## Defining road related vocabulary
+```{r}
+road_vocabulary1 <- c("via", "pons", "mutatio", "mansio", "caput viae", "miliarium", "millia passuum", "passus", "carpentum", "porta", "vicus", "clivus", "semita", "angiportus", "scala", "gradus", "gressus", "incessus", "leuga", "tabellarium", "tabelarium", "itinerarium", "annona", "actus", "cursus publicus", "vehiculatio", "vehiculum", "iter", "iumentum", "Via publica", "Via privata", "Via vicinalis", "Via terrena", "viam munire", "viam fecit", "viam refecit", "viam restituit", "curator viarum", "compitum", "deverticulum", "diverticulum", "civitas", "viator", "arcus", "statio", "terminus", "lares viales", "lares compitales", "Redicolus", "Ianus")
+
+road_vocabulary2 <- c("παροδεῖτα")
+```
+
+## Searching for predefined vocabulary in lemmata
+```{r}
+EDH_tibble %>%
+  count(lemma, sort = TRUE) %>%
+  filter(lemma %in% road_vocabulary1) %>% 
+  print()
+```
+
+### Separating the subdataset containing the predefined vocabulary
+```{r}
+road_text <- EDH_tibble %>%
+  filter(lemma %in% road_vocabulary1) %>% 
+  print()
+```
+
+### What type of inscriptions contain selected vocabulary
+```{r}
+road_text %>% 
+  count(type_of_inscription_clean, sort=TRUE)
+```
+
+### What are the most common words (lemma and token)
+```{r}
+road_text %>% 
+  count(lemma, token, sort=TRUE)
+```
+
+### How many unique inscriptions there are
+```{r}
+length(unique(road_text$id_num))
+```
+
+### Select only the text of inscriptions once
+```{r}
+road_text %>% 
+  select(id_num, clean_text_interpretive_word) %>% 
+  distinct(id_num, .keep_all = TRUE)
+```
+
