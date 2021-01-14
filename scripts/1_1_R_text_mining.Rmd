@@ -108,6 +108,10 @@ occupations_spatial$longitude <- as.numeric(str_replace(occupations_spatial$long
 
 # how many have longitude
 length(na.omit(occupations_spatial$longitude))
+
+# eliminating NA values
+occupations_spatial <- occupations_spatial %>% 
+  filter(longitude != "NA")
 ```
 
 ```{r}
@@ -155,21 +159,128 @@ st_crs(cities_geo)
 
 #Set buffer zone to 5 km
 cities_5km<- st_buffer(cities_geo, dist = 0.05)
-```
+cities_20km<- st_buffer(cities_geo, dist = 0.2)
 
+```
+### Plotting the buffer
 ```{r}
 plot_sf(cities_geo)
 plot(st_geometry(cities_5km), col = "yellow", add = TRUE)
 #plot(st_geometry(cities_geo), pch=20, cex = 0.1, add = TRUE)
 ```
 
-Select all inscriptions within the buffer zone:
-
-Spatial join
+### Plotting with tmap
 ```{r}
-occupations_spatial %>% 
-  filter()
+library(tmap)
+
+# Test
+c_buf <- cities_5km %>% slice(1:10)
+c <- cities_geo %>% slice(1:10)
+
+tm_shape(c_buf)  +
+ tm_polygons(col = "pink") +
+ tm_shape(c) +
+ tm_dots(col = "black",
+            size = 0.1) +
+ tm_scale_bar(breaks = c(0, 5, 10,15),
+              text.size = 10,
+              position = c("LEFT", "bottom")) +
+ tm_compass(position = c("LEFT", "bottom"),
+            type = "rose",
+            size = 2)
 ```
+
+### Projecting occupations
+```{r}
+occupations_geo <- st_as_sf(occupations_spatial, coords = c("longitude", "latitude"))
+occupations_geo <- st_set_crs(occupations_geo, 3035) %>% st_transform(3035, "+units=m")
+st_crs(occupations_geo)
+```
+
+
+### Spatial join of buffers around cities and occupations 5 km
+
+```{r}
+occupations_df<- st_sf(occupations_geo)
+cities_5km_df<- st_sf(cities_5km)
+
+occupations_5km_cont <- st_contains(cities_5km_df, occupations_df)
+cont <- occupations_5km_cont[[1]]
+
+occupations_5km_int <- st_intersects(cities_5km_df, occupations_df)
+int <- occupations_5km_int[[1]]
+
+occupations_5km_clip <- st_intersection(cities_5km, occupations_geo)
+```
+### Spatial join of buffers around cities and occupations 20 km
+```{r}
+occupations_df<- st_sf(occupations_geo)
+cities_20km_df<- st_sf(cities_20km)
+
+occupations_20km_cont <- st_contains(cities_20km_df, occupations_df)
+cont <- occupations_20km_cont[[1]]
+
+occupations_20km_int <- st_intersects(cities_20km_df, occupations_df)
+int <- occupations_20km_int[[1]]
+
+occupations_20km_clip <- st_intersection(cities_20km, occupations_geo)
+```
+
+```{r}
+plot(st_geometry(occupations_5km_clip))
+plot(occupations_df, add = TRUE, col = "blue")
+plot(st_geometry(occupations_20km_clip), add = TRUE, col = "green")
+plot(st_geometry(occupations_5km_clip), add = TRUE, col = "red")
+```
+```{r}
+head(occupations_5km_clip)
+```
+Number unique of inscriptions containing occupation and spatial info
+```{r}
+length(unique(occupations_geo$id_num))
+length(unique(occupations_5km_clip$id_num))
+length(unique(occupations_20km_clip$id_num))
+```
+
+Inscriptions containing occupation found within 5k buffer from Ancient.Toponym counted by Ancient.Toponym
+```{r}
+occupations_5km_clip %>% 
+  count(Ancient.Toponym, sort=TRUE) %>% 
+  head()
+```
+
+Inscriptions containing occupation found within 5k buffer from Ancient.Toponym counted by province
+```{r}
+occupations_5km_clip %>% 
+  count(Province, sort=TRUE) %>% 
+  head()
+```
+
+Inscriptions containing occupation found within 20k buffer from Ancient.Toponym counted by Ancient.Toponym
+```{r}
+occupations_20km_clip %>% 
+  count(Ancient.Toponym, sort=TRUE) %>% 
+  head()
+```
+
+Inscriptions containing occupation found within 20k buffer from Ancient.Toponym counted by province
+```{r}
+occupations_20km_clip %>% 
+  count(Province, sort=TRUE) %>% 
+  head()
+```
+
+Number of unique occupations
+```{r}
+length(unique(occupations_geo$lemma))
+length(unique(occupations_5km_clip$lemma))
+length(unique(occupations_20km_clip$lemma))
+```
+
+
+Next:
+compute distance to te nearest city
+
 
 
 
