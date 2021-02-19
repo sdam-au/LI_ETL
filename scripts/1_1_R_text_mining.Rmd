@@ -57,7 +57,7 @@ head(EDH_tibble)
 ## Horizontal stratification - occupations
 Dictionary of occupations based on Walzting 1900, 1-128, Petrikovits 1981a, 83-115, Petrikovits 1981b, 295-306.
 
-They were manually transcribed into a spreasheet, categorised based on Harris 2002, and cross checked with the entries in Lewis-Short dictionary.
+They were manually transcribed into a spreadsheet, categorised based on Harris 2002, and cross checked with the entries in Lewis-Short dictionary.
 
 ```{r}
 gs4_deauth() # de-uthorized mode, no need of authentication token (if the spreadsheet is public)
@@ -153,6 +153,12 @@ occupations_text$lemma_fixed <- gsub(pattern = fixing_lemma$lemma_old, x = occup
 occupations_text %>% 
   filter(lemma == "nauo") %>% 
   select(token, lemma, lemma_fixed)
+```
+```{r}
+# architeceo
+
+EDH_tibble %>% 
+  filter(lemma == str_subset(EDH_tibble$lemma, "argentarior"))
 ```
 
 
