@@ -1,2 +1,3 @@
-.*
-!/.gitignore
+/data/large_data
+/socdiv_venv
+
