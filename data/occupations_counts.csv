@@ -1,0 +1,327 @@
+,occupation,count,category,translation
+0,faber,658,Metal-Working,"a worker in wood, stone, metal, etc., a forger, smith, artificer, carpenter, joiner"
+1,curator,389,Managerial,"he who takes charge, a manager, overseer, superintendent, keeper, commissioner, delegate"
+2,medicus,248,Miscellaneous Services,a surgeon
+3,aerarius,227,Metal-Working,metal worker
+4,scriba,211,Education,"a public writer, official scribe, professional writer, clerk, secretary"
+5,sagittarius,128,Metal-Working,"arrow-makers, arrow-smiths"
+6,vexillarius,75,Miscellaneous Services,"a standard-bearer, maker"
+7,mensor,74,Miscellaneous Services,"a measurer, surveyor"
+8,negotiator,71,Retail,"one who does business by wholesale, a wholesale dealer, a banker, a factor"
+9,dendrophorus,68,Building,a carpenter
+10,argentarius,61,Metal-Working,"jewellery maker, banker"
+11,vestiarius,48,Retail,a clothes-dealer
+12,architectus,41,Building,"a master-builder, architect"
+13,arcarius,37,Finance,"treasurer, a controller of public revenues"
+14,scaenicus,34,Performing Arts,"of the stage, scenic, dramatic, theatrical"
+15,gladiator,28,Performing Arts,gladiator
+16,tignarius,27,Building,carpenter
+17,negotians,26,Retail,trader
+18,cornicen,26,Performing Arts,"a hornblower, trumpeter, cornet-player"
+19,cocus,25,Food-Production,a cook 
+20,sagarius,25,Retail,a dealer in mantles
+21,ornatrix,25,Miscellaneous Services,"female adorner, dresser"
+22,pistor,25,Food-Production,"one who pounds corn in a mortar or grinds it in a hand-mill, a miller, a baker"
+23,vinarius,24,Food-Retail,"a wine-dealer, vintner"
+24,unctor,24,Miscellaneous Services,an anointer
+25,structor,24,Building,"a builder, mason, carpenter"
+26,marmorarius,24,Building,marble worker
+27,conditor,24,Food-Production,"cook, a seasoner, pickler"
+28,lecticarius,24,Food-Production,a cook
+29,horrearius,24,Managerial,the superintendent of a storehouse
+30,navalis,23,Transport,"sailors, seamen"
+31,mercator,23,Retail,trader
+32,nummularius,23,Finance,a money-changer
+33,fullo,21,Clothing,a cloth-fuller
+34,nauta,21,Transport,"a sailor, seaman, mariner, merchant"
+35,unguentarius,20,Miscellaneous Services,perfume or ointment maker
+36,tonsor,19,Miscellaneous Services,"a shearer, clipper, shaver, hair-cutter, barber"
+37,retiarius,18,Performing Arts,"a gladiator who used a net to entangle his adversary, net-fighter"
+38,purpurarius,17,Clothing,purple colour dyer
+39,possessor,17,Managerial,"a possessor, owner"
+40,sarcinatrix,17,Clothing,"female patcher, botcher, mender of old garments"
+41,armamentarius,16,Miscellaneous Services,"an arsenal provider, armory keeper"
+42,lapidarius,16,Building,stone-cutter
+43,topiarius,16,Miscellaneous Services,"gardener, landscaper"
+44,sutor,15,Clothing,"a shoemaker, cobbler"
+45,pictor,15,Plastic Arts,painter
+46,aurifex,15,Metal-Working,goldsmith
+47,scriptor,15,Managerial,"one who writes, a writer, scribe, copyist, clerk"
+48,lanius,15,Food-Production,a butcher
+49,pantomimus,14,Performing Arts,a ballet-dancer
+50,margaritarius,14,Retail,"a dealer in pearls, a pearl-fisher"
+51,scabillarius,14,Miscellaneous Services,"player of a footstool, cricket"
+52,agrimensor,12,Miscellaneous Services,a landsurveyor
+53,vascularius,12,Metal-Working,"a worker in metals, whitesmith, goldsmith"
+54,venator,11,Miscellaneous Services,a hunter
+55,cellarius,11,Household Goods,"one who keeps provisions, a steward, butler"
+56,coactor,10,Clothing,felt producer or seller
+57,copo,10,Miscellaneous Services,innkeeper
+58,anularius,10,Metal-Working,maker of rings
+59,codicarius,10,Transport,those who sail on such ships (esp. those who brought the corn from Ostia to Rome)
+60,lanarius,10,Clothing,a worker in wool
+61,tector,10,Building,"one that overlays walls with plaster, stucco, etc., a plasterer, pargeter"
+62,aquarius,9,Water-Management,"fountain worker, of water, watery, water carrier"
+63,scutarius,9,Miscellaneous Services,shield maker
+64,parasitus,9,Performing Arts,"a player, actor"
+65,quasillaria,9,Clothing,"a basketwench, spinning-girl"
+66,pomarius,8,Food-Retail,"of fruit, of fruittrees seller"
+67,dissignator,8,Managerial,"an undertaker, manager"
+68,plumbarius,8,Metal-Working,"a plumber, lead worker"
+69,capsarius,8,Miscellaneous Services,"healing asssitant, producer of capsae (a repository, box, bookcase)"
+70,seplasiarius,8,Miscellaneous Services,anoitment maker and seller
+71,clavicularius,8,Metal-Working,"A bar, bolt of the door maker, or guardian of a prison"
+72,aurificus,8,Metal-Working,"goldworker, goldsmith"
+73,redemptor,7,Food-Production,"a miller, bread-maker, baker"
+74,exceptor,7,Education,"an amanuensis, short-hand writer, scribe"
+75,scholasticus,7,Education,"who teaches or studies rhetoric, a lecturer in the schools, a rhetorician"
+76,caligarius,7,Clothing,a shoemaker
+77,materiarius,7,Building,wood-worker
+78,circitor,6,Managerial,"A watchman, overseer, supervisor"
+79,salarius,6,Retail,"salt maker, dealer"
+80,iumentarius,6,Transport,of or belonging to draught-cattle
+81,gladiarius,6,Metal-Working,a sword-cutler
+82,ferrarius,6,Metal-Working,iron smith
+83,officinator,6,Miscellaneous Services,"one who keeps a workshop, a master-workman, an artificer, artist"
+84,subaedianus,5,Building,carpenter ?
+85,olearius,5,Food-Production,"oil-maker, olive oil dealer"
+86,artifex,5,Plastic Arts,"One that is master in the liberal arts,an artist, artificer"
+87,tibicinus,5,Performing Arts,flute player
+88,dolabrarius,5,Metal-Working,a pickaxe-maker
+89,ornator,5,Miscellaneous Services,"An adorner, dresser"
+90,pequarius,5,Food-Production,"sheep, cattle breader"
+91,cerarius,5,Household Goods,manufacturer of wax products
+92,cretaria,5,Retail,"a shop for Cretan earth, pottery"
+93,utricularius,5,Transport,"a bagpiper, The master of a raft floated on bladders, used for ferriage"
+94,aurarius,5,Metal-Working,gold-mine worker
+95,textor,5,Clothing,weaver
+96,poeta,5,Performing Arts,a poet
+97,tabernarius,5,Retail,"shopkeepers, small dealers"
+98,quadratarius,5,Building,stonemason
+99,navicularius,5,Transport,"a ship-owner who hires out vessels for money, a ship-master, merchant"
+100,curator navium,5,Managerial,ship manager
+101,coronarius,5,Miscellaneous Services,maker of wreaths/crowns
+102,fictor,5,Plastic Arts,"a moulder, sculptor, image-maker, statuary"
+103,faber tignuarii,5,Building,builder
+104,mulionus,4,Transport,of a mule-driver
+105,centonarius,4,Clothing,"a maker of patchwork, a dealer in rags"
+106,lintiarius,4,Clothing,"a linen-weaver, dealer in linen"
+107,colorator,4,Clothing,"dyer, colormaker, painter"
+108,aeneator,4,Performing Arts,"musician, one who blows a horn in war
+"
+109,hastifer,4,Miscellaneous Services,city militia
+110,pecuarius,4,Food-Production,"sheep, cattle breader"
+111,essedarius,4,Miscellaneous Services,a fighter in a war-chariot
+112,paenularius,4,Clothing,cloak or mantle maker and seller
+113,navigans,4,Transport,one who sails in a small vessel
+114,lignarius,4,Building,"A worker in wood, a carpenter, joiner"
+115,caupo,4,Retail,"a petty tradesman, huckster, innkeeper"
+116,sacomarius,4,Miscellaneous Services,one who makes counterpoises or weights 
+117,magnarius,4,Retail,"a dealer in gross, wholesale dealer"
+118,stuppator,4,Building,"caulker, joiner"
+119,aedifex,4,Building,builder
+120,tignuarius,4,Building,carpenter
+121,plumarius,4,Household Goods,an embroiderer
+122,fossor,4,Building,"a digger, delver, ditcher"
+123,agricola,3,Food-Production,"a husbandman, agriculturist, ploughman, farmer, peasant"
+124,cuparius,3,Metal-Working,a cooper
+125,vinariarius,3,Food-Retail,a wine - dealer
+126,scalptor,3,Plastic Arts,"a cutter, graver in metal or stone"
+127,specularius,3,Glass-Working,"a mirror-maker, window glass maker"
+128,suarius,3,Food-Production,pig breader
+129,figulus,3,Household Goods,a potter
+130,calcarius,3,Building,limestone quarry worker
+131,archimagirus,3,Food-Production,chef
+132,manticularius,3,Clothing,"manufacturer of a small wallet, purse, pouch"
+133,clavarius,3,Metal-Working,nail maker
+134,cervesarius,3,Food-Production,"beermaker, brewer"
+135,offector,3,Clothing,dyer
+136,brattiarius,3,Metal-Working,"goldsheet maker, worker"
+137,caelator,3,Plastic Arts,"relief maker, carver"
+138,nauclerus,3,Transport,"a shipowner, a ship-master, skipper"
+139,tegularius,3,Building,"a tile, roof-tile maker"
+140,forensis,3,Managerial,"of or belonging to the market or forum, public, trader, a public pleader, advocate"
+141,sartor,3,Miscellaneous Services,"A hoer, weeder, cultivator"
+142,spatharius,3,Metal-Working,"a broad sword with a double edge, sabre maker"
+143,sculptor,3,Plastic Arts,"one who cuts, carves, or engraves in stone, wood"
+144,capulator,3,Miscellaneous Services,decanter
+145,caplator,3,Transport,oil transporter
+146,intestinarius,3,Building,woodworker
+147,scapharius,3,Transport,owner of a small boat
+148,apparator,3,Miscellaneous Services,one that prepares
+149,unctrix,3,Miscellaneous Services,female perfume or ointment maker
+150,vestiplicus,3,Clothing,a clothes-folder
+151,lectarius,3,Household Goods,a couch-maker
+152,politor,3,Miscellaneous Services,"a cultivator, improver, a polisher"
+153,eborarius,3,Miscellaneous Services,a worker in ivory
+154,statuarius,2,Plastic Arts,"a maker of statues, a statuary "
+155,fontanus,2,Water-Management,"of a spring, from a fountain, spring, worker?"
+156,mesor,2,Miscellaneous Services,"a measurer, surveyor"
+157,coriarius,2,Clothing,"a tanner, currier"
+158,institor,2,Retail,"a factor, broker, huckster, hawker, peddler"
+159,pectenarius,2,Household Goods,a combmaker
+160,infector,2,Clothing,a dyer
+161,annonarius,2,Managerial,of or pertaining to provisions
+162,gisiarius,2,Transport,The maker / driver of a cabriolet
+163,naupegus,2,Transport,"a shipbuilder, shipwright, ship-carpenter"
+164,athleta,2,Performing Arts,"a wrestler, athlete, combatant in public games"
+165,operarius,2,Miscellaneous Services,"a laborer, workman, operative"
+166,vector,2,Transport,"one who bears, a bearer, carrier"
+167,canalicularius,2,Water-Management,"canal constructor, specialized worker"
+168,legulus,2,Food-Production,"a gatherer, collector; esp. one who picked up the fallen olives"
+169,gypsarius,2,Building,plaster worker
+170,fabriciensis,2,Metal-Working,an armorer
+171,speculariarius,2,Glass-Working,"a mirror-maker, window glass maker"
+172,arenarius,2,Performing Arts,"harenarius, combatant in the amphitheatre, a gladiator"
+173,macellarius,2,Food-Production,butcher
+174,molendarius,2,Food-Production,miller
+175,restio,2,Retail,"A ropemaker, rope-seller"
+176,lanipendia,2,Clothing,one who weighs out wool
+177,linarius,2,Clothing,"a linen-weaver, dealer in linen"
+178,custodiarius,2,Miscellaneous Services,a jailer
+179,ratiarius,2,Transport,"a raftsman, lighterman"
+180,tignor,2,Building,carpenter
+181,cultrarius,2,Metal-Working,"knife maker, cutler"
+182,sericarius,2,Clothing,silk producer and dealer
+183,dominus navium,2,Transport,shipmaster
+184,pellio,2,Clothing,"one that prepares skins, a furrier"
+185,libarius,2,Food-Production,"a pastry-cook, confectioner"
+186,gemmarius,2,Plastic Arts,"gem maker, carver"
+187,cisiarius,2,Transport,The maker / driver of a cabriolet
+188,siricarius,2,Clothing,silk producer and dealer
+189,tonstrix,2,Miscellaneous Services,female hairdresser and shearers
+190,sarcinator,2,Clothing,"a patcher, botcher, mender of old garments"
+191,suppostor,2,Finance,coin maker
+192,signator,2,Finance,"one who stamps money, a coiner"
+193,boarius,2,Food-Production,cattle breader
+194,fidicinus,2,Performing Arts,lute player
+195,calciator,2,Clothing,a shoemaker
+196,flaturarius,2,Metal-Working,a caster
+197,vestificus,2,Clothing,tailor
+198,axearius,2,Building,"uncertain, board-cutter"
+199,gerulus,2,Transport,"a carrier, porter"
+200,barbaricarius,2,Clothing,textile worker
+201,carpentarius,2,Transport,a wheelwright
+202,imaginarius,1,Plastic Arts,painter
+203,ephippiarius,1,Transport,saddler
+204,anabolicarius,1,Transport,one day sailor
+205,soliarius,1,Clothing,shoe maker
+206,clibanarius,1,Food-Production,"a soldier clad in mail, a cuirassier, baker"
+207,lupinarius,1,Food-Retail,dealers in lupines
+208,aurufex,1,Metal-Working,"goldworker, goldsmith"
+209,machinator,1,Miscellaneous Services,"a maker of machines, a machinist, an engineer, architect"
+210,carbonarus,1,Fuel / Raw material,"coal handler, worker, miner"
+211,dolator,1,Building,worker with an axe
+212,intestinus,1,Building,woodworker
+213,moritex,1,Unclear meaning,unclear
+214,decanus,1,Managerial,"A chief of ten, one set over ten persons"
+215,olarius,1,Household Goods,potter
+216,pectinarius,1,Household Goods,a combmaker
+217,vasclarius,1,Metal-Working,"a worker in metals, whitesmith, goldsmith"
+218,polio,1,Miscellaneous Services,"a cultivator, improver, a polisher"
+219,piscator,1,Food-Production,"a fisherman, fisher"
+220,subidianus,1,Building,carpenter ?
+221,anaglyptarius,1,Plastic Arts,"relief maker, carver"
+222,lanificus,1,Clothing,a wool-spinner
+223,artefex,1,Plastic Arts,"One that is master in the liberal arts,an artist, artificer"
+224,pollio,1,Miscellaneous Services,"a cultivator, improver, a polisher"
+225,calegarius,1,Clothing,a shoemaker
+226,conflator,1,Metal-Working,a metal-caster
+227,lapicida,1,Building,"a quarryman, stone-cutter"
+228,tubularius,1,Water-Management,pipe maker
+229,caementarius,1,Building,mason
+230,molinarius,1,Food-Production,miller
+231,conquiliarius,1,Clothing,a collector of purpur shell-fish
+232,fabricensis,1,Metal-Working,an armorer
+233,scultor,1,Plastic Arts,"one who cuts, carves, or engraves in stone, wood"
+234,camararius,1,Building,vault building worker
+235,lanionus,1,Food-Production,of or belonging to a butcher
+236,focarius,1,Food-Production,"a kitchen-boy; a kitchen-maid, cook"
+237,faber ferrarii,1,Metal-Working,blacksmith
+238,carminator,1,Clothing,"a carder, practitioner of carding, a method of preparing wool for use as a textile"
+239,laniarius,1,Food-Production,a butcher
+240,professor,1,Education,a public teacher
+241,rosarius,1,Retail,seller of roses
+242,lintio,1,Clothing,"a linen-weaver, dealer in linen"
+243,faber tignarii,1,Building,builder
+244,scaenarius,1,Plastic Arts,a painter
+245,cellio,1,Household Goods,"one who keeps provisions, a steward, butler"
+246,lotorus,1,Clothing,fuller
+247,navigator,1,Transport,sailor
+248,lanternarius,1,Household Goods,lamp maker
+249,porcinarius,1,Food-Production,pig breader
+250,candidarius,1,Food-Production,a baker
+251,cisianus,1,Transport,"uncertain, the maker / driver of a cabriolet"
+252,propola,1,Retail,"a forestaller, retailer, huckster"
+253,pausarius,1,Finance,"A money-changer, banker"
+254,ollarius,1,Household Goods,potter
+255,navigiarius,1,Transport,one who sails in a small vessel
+256,lyntrarius,1,Transport,raft-maker
+257,albarius,1,Building,"worker in stucco, a plasterer"
+258,veterarius,1,Miscellaneous Services,fixer or old things
+259,refector pectinarius,1,Household Goods,"a restorer, repairer of combs"
+260,loricarius,1,Miscellaneous Services,"maker of lorica, cuirass"
+261,exactor auri argenti et aeris,1,Finance,"overseer of gold and silver money production,a collector of taxes, a tax gatherer"
+262,aromatarius,1,Retail,"seller of perfumes, spices"
+263,subrutor,1,Building,demolisher
+264,panarius,1,Food-Retail,a bread-seller
+265,similaginarius,1,Food-Production,wheat bread baker
+266,librator,1,Miscellaneous Services,"a leveller, esp. by means of a water-level, a surveyor"
+267,inaurator,1,Metal-Working,a gilder
+268,cellararius,1,Household Goods,"one who keeps provisions, a steward, butler"
+269,saccarius,1,Transport,"one who carries sacks, sack maker"
+270,vitriarius,1,Glass-Working,glass manufacturer
+271,cerdo,1,Miscellaneous Services,a handicraftsman
+272,parietarius,1,Plastic Arts,a painter
+273,textrix,1,Clothing,female weaver
+274,palangarius,1,Food-Retail,wine bearer
+275,subaedanus,1,Miscellaneous Services,worker inside the house
+276,eburarius,1,Miscellaneous Services,a worker in ivory
+277,monetarius,1,Finance,a master of the mint
+278,vestitor,1,Clothing,tailor
+279,tubarius,1,Miscellaneous Services,"a trumpet, war-trumpet maker and distributor"
+280,abietarius,1,Building,"a joiner, wood worker"
+281,acceptor,1,Finance,"collector, gold quality checker"
+282,calcariensis,1,Building,a limeburner
+283,calcarensis,1,Building,a limeburner
+284,furnarius,1,Food-Production,"baker, stove builder"
+285,chartarius,1,Miscellaneous Services,papyrus maker
+286,clostrarius,1,Household Goods,lock maker and seller
+287,conditarius,1,Food-Production,"fine cook, foor preparer"
+288,confectorarius,1,Food-Production,a butcher
+289,automatarius,1,Miscellaneous Services,a maker of automata
+290,ferrius,1,Metal-Working,worker with iron
+291,oculariarius,1,Plastic Arts,"artisan, glass eye maker for statues"
+292,faenarius,1,Finance,one who lends money on interest
+293,florentinarius,1,Unclear meaning,uncertain
+294,glutinarius,1,Miscellaneous Services,"glue boiler, glue maker"
+295,holitor,1,Food-Production,"gardener, vegetable gardener"
+296,coactiliarius,1,Clothing,felt maker
+297,musivarius,1,Unclear meaning,unclear
+298,salsamentarius,1,Food-Retail,a dealer in salted fish
+299,officinatrix,1,Miscellaneous Services,"female one who keeps a workshop, a master-workman, an artificer, artist"
+300,pastillarius,1,Food-Production,a maker of pastils
+301,quadrigularius,1,Plastic Arts,a painter
+302,plutiarius,1,Building,a maker of balustrades
+303,promus,1,Miscellaneous Services,"a cellarer, steward, butler"
+304,signarius,1,Plastic Arts,a sculptor
+305,solatarius,1,Clothing,shoe maker
+306,tibiarius,1,Transport,"fleet manufacturer, ship maker"
+307,tostrix,1,Miscellaneous Services,female hairdresser and shearers
+308,acuclarius,1,Metal-Working,manufacturer or seller of needles
+309,mimus,1,Performing Arts,mime
+310,lanifica,1,Clothing,female wool-spinner
+311,tractator,1,Miscellaneous Services,"A slave among the Romans, who manipulated and suppled his master's limbs while anointing them; a shampooer"
+312,cullearius,1,Household Goods,"maker of a leather bag, sack for liquids"
+313,machinarius,1,Building,"a machinist, machine-builder,"
+314,peponarius,1,Food-Retail,melon seller
+315,liticinus,1,Performing Arts,a player on the clarion
+316,coactarius,1,Clothing,felt maker
+317,lintearius,1,Transport,"a boatman, waterman"
+318,caudicarius,1,Transport,those who sail on such ships (esp. those who brought the corn from Ostia to Rome)
+319,furnaria,1,Food-Production,"female baker, stove builder"
+320,pincerna,1,Miscellaneous Services,cupbearer
+321,opifex,1,Building,"a worker, workman, mechanic, artisan"
+322,scamillarius,1,Miscellaneous Services,"player of a footstool, cricket"
+323,excusor,1,Metal-Working,blacksmith
+324,pectinator,1,Household Goods,a combmaker
