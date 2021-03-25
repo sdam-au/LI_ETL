@@ -1,0 +1,7 @@
+,context,measurement,N of bootstraps,mean,std,min,25%,50%,75%,max
+0,cities (pop.≥30K),"occups. per 1,000 ins.",1000,36.82,7.84,15,31,36,42,68
+1,cities (pop.>1K),"occups. per 1,000 ins.",1000,29.58,6.36,12,25,29,34,56
+2,rural or minor cities,"occups. per 1,000 ins.",1000,15.86,4.68,3,13,15,19,34
+3,cities (pop.≥30K),"orgs. per 1,000 ins.",1000,37.26,7.8,18,32,36,42,69
+4,cities (pop.>1K),"orgs. per 1,000 ins.",1000,29.61,6.19,14,25,29,34,54
+5,rural or minor cities,"orgs. per 1,000 ins.",1000,15.75,5.0,4,12,15,19,41
