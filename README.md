@@ -29,8 +29,8 @@ CC-BY-SA 4.0, see attached [License.md](https://github.com/sdam-au/EDCS_ETL/blob
 ## How to use this repository
 
 * download or clone the repository
-* activate the virtual environment (open your command line, move the the repository folder and run `bash ./create_pia_venv.sh`)
-* in the jupyter notebooks, always check that you are connected to the *pia_venv* kernel
+* activate the virtual environment (open your command line, move the the repository folder and run `bash ./create_socdiv_venv.sh`)
+* in the jupyter notebooks, always check that you are connected to the *socdiv_venv* kernel
 * (alternatively, if you do not wish to use the virtual environment, make sure that you have installed all required python packages within the `requirements.txt` file: `pip install -r requiremnts.txt`
 
 ### Data
