@@ -1,7 +1,0 @@
-,measurement,context,mean,std,min,25%,50%,75%,max
-0,"occups. per 1,000 ins.",cities (pop.≥30K),37.09,7.88,18,32,36,42,72
-1,"occups. per 1,000 ins.",cities (pop.>1K),29.77,6.56,12,25,29,34,52
-2,"occups. per 1,000 ins.",rural or minor cities,15.85,4.74,4,13,16,19,37
-3,"orgs. per 1,000 ins.",cities (pop.≥30K),37.35,7.55,17,32,37,42,62
-4,"orgs. per 1,000 ins.",cities (pop.>1K),29.58,6.12,14,25,29,34,49
-5,"orgs. per 1,000 ins.",rural or minor cities,15.81,4.73,4,13,15,19,37
