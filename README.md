@@ -1,10 +1,9 @@
-# Measuring social development and diversity in ancient epigraphic production
-*ANALYSIS* - work in progress, contents of this repository is likely change on a daily basis
+# EDHCS
 
 ---
 ## Authors
-* Petra Hermankova [![](https://orcid.org/sites/default/files/images/orcid_16x16.png)](https://orcid.org/0000-0002-6349-0540), SDAM project, petra.hermankova@cas.au.dk
 * Vojtech Kase
+* Petra Hermankova [![](https://orcid.org/sites/default/files/images/orcid_16x16.png)](https://orcid.org/0000-0002-6349-0540), SDAM project, petra.hermankova@cas.au.dk
 * Adela Sobotkova
 
 ## Abstract
@@ -42,9 +41,5 @@ CC-BY-SA 4.0, see attached [License.md](https://github.com/sdam-au/EDCS_ETL/blob
 * Python 3
 * Jupyter notebooks app/JupyterLab/JupyterHub
 * Python 3 additional libraries listed `requirements.txt`
-
-
-
-
 
 
