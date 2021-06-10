@@ -15,6 +15,14 @@
 * `geography` : latitude/longitude defining geospatial position in form of a point
 In the case of other metadata attrubutes, the information cannot be easily transferred between the two sources. For instance, EDCS has the attribute `inscr_type` which should bear approaximately the same information as `type_of_inscription_clean` in EDH. However, the `inscr_type` attribute from EDCS uses a different classification system than EDH, relies on latin labels of inscription types etc. We are currently working on a machine learning solution to this probalm of incompatible classifications.
 
+A full, unfiltered, version of the dataset is currently available as a JSON file in a public folder on sciencedata.dk:
+* URL for downlosd: https://sciencedata.dk/public/a9237c5ea642d4714bcdefb03f70a1f4/EDHCS_unfiltered.json
+* sddk command to read it into Python as Pandas DataFrame object: `EDHCS = sddk.read_file("EDHCS_unfiltered.geojson", "df", "a9237c5ea642d4714bcdefb03f70a1f4")`
+
+A subset of the full dataset, which contains only inscriptions which are in Latin, which are geolocated, which are geolocated within the borders of the Roman Empire and which are dated to the period from 50 BC to 350 AD, is available in the same public folder as a GeoJSON file:
+* URL for download: https://sciencedata.dk/public/a9237c5ea642d4714bcdefb03f70a1f4/EDHCSg.geojson
+* sddk command to read it into Python as GeoPandas GeoDataFrame object: `EDHCSg = sddk.read_file("EDHCSg.geojson", "gdf", "a9237c5ea642d4714bcdefb03f70a1f4")`
+
 ---
 
 ## License
