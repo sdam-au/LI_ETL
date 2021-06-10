@@ -8,11 +8,16 @@
 
 ## Description
 
+**EDHCS** dataset is an aggregate of EDH and EDCS epigraphic datasets. For inscriptions which are covered by both datasets, it contains attributes from both of them. In cases in which an inscription is available only in one dataset, it contains attributes only from that one dataset. Some crucial attributes are shared by both sources:
+* `clean_text_interpretive_word`: text of the inscription
+* `not_before`: start of the dating interval
+* `not_after` : end of the dating interval
+* `geography` : latitude/longitude defining geospatial position in form of a point
+In the case of other metadata attrubutes, the information cannot be easily transferred between the two sources. For instance, EDCS has the attribute `inscr_type` which should bear approaximately the same information as `type_of_inscription_clean` in EDH. However, the `inscr_type` attribute from EDCS uses a different classification system than EDH, relies on latin labels of inscription types etc. We are currently working on a machine learning solution to this probalm of incompatible classifications.
 
 ---
 
 ## License
-CC-BY-SA 4.0, see attached [License.md](https://github.com/sdam-au/EDCS_ETL/blob/master/LICENSE.md)
 
 ## DOI
 [Here will be DOI or some other identifier once we have it]
