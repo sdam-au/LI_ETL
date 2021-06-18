@@ -8,12 +8,12 @@
 
 ## Description
 
-**EDHCS** dataset is an aggregate of EDH and EDCS epigraphic datasets. For inscriptions which are covered by both datasets, it contains attributes from both of them. In cases in which an inscription is available only in one dataset, it contains attributes only from that one dataset. Some crucial attributes are shared by both sources:
+**EDHCS** dataset is an aggregate of EDH and EDCS epigraphic datasets. For inscriptions which are covered by both datasets, it contains attributes from both of them. In cases in which an inscription is available only in one dataset, it contains attributes only from that one dataset. Some crucial attributes are shared by both datasets:
 * `clean_text_interpretive_word`: text of the inscription
 * `not_before`: start of the dating interval
 * `not_after` : end of the dating interval
 * `geography` : latitude/longitude defining geospatial position in form of a point
-In the case of other metadata attrubutes, the information cannot be easily transferred between the two sources. For instance, EDCS has the attribute `inscr_type` which should bear approaximately the same information as `type_of_inscription_clean` in EDH. However, the `inscr_type` attribute from EDCS uses a different classification system than EDH, relies on latin labels of inscription types etc. We are currently working on a machine learning solution to this probalm of incompatible classifications.
+In the case of other metadata attributes, the information cannot be easily transferred between the two sources. For instance, EDCS has the attribute `inscr_type` which should bear approximately the same information as `type_of_inscription_clean` in EDH. However, the `inscr_type` attribute from EDCS uses a different classification system than EDH, relies on latin labels of inscription types etc. We are currently working on a machine learning solution to this probalm of incompatible classifications.
 
 A full, unfiltered, version of the dataset is currently available as a JSON file in a public folder on sciencedata.dk:
 * URL for downlosd: https://sciencedata.dk/public/a9237c5ea642d4714bcdefb03f70a1f4/EDHCS_unfiltered.json
