@@ -22,11 +22,6 @@ A subset of the full dataset, which contains only inscriptions which are in Lati
 * URL for download: https://sciencedata.dk/public/a9237c5ea642d4714bcdefb03f70a1f4/EDHCSg.geojson
 * sddk command to read it into Python as GeoPandas GeoDataFrame object: `EDHCSg = sddk.read_file("EDHCSg.geojson", "gdf", "a9237c5ea642d4714bcdefb03f70a1f4")`
 
-## License
-
-## DOI
-[Here will be DOI or some other identifier once we have it]
-
 
 ---
 ## How to use this repository
@@ -46,6 +41,7 @@ A subset of the full dataset, which contains only inscriptions which are in Lati
 * Jupyter notebooks app/JupyterLab/JupyterHub
 * Python 3 additional libraries listed `requirements.txt`
 
+---
 ## Automatic assigment of `type_of_inscription`
 
 The EDHCS dataset consists of 137,305 inscriptions. These inscriptions might be classified as falling into certain inscription categories. However, the two source datasets (EDH and EDCS) employ a different approach to inscription classification. First of all, EDH uses English labels (e.g. "epitaph", "votive inscription" etc.), while EDCS uses Latin labels (e.g. "tituli_sepulcrales" or "tituli sacri"). In some cases, these types can be matched upon each other in a straightforward manner, in other cases this is not so simple. For instance, since the typological categories employed by EDCS are not mutually exclusive, some inscriptions are classified by means of five different labels. Furthermore, one category in the first source might correspond to several categories within the second source. For instance, the `owner/artist inscription` category in EDH corresponds either to `tituli possessionis` and `tituli fabricationis` in EDCS.
