@@ -119,6 +119,6 @@ As a result of applying the model, we enriched the whole EDHCS dataset by 2 new 
 * `type_of_inscription_auto`, containing either the predicted label or - where available - the label from `type_of_inscription_clean` 
 * `type_of_inscription_auto_prob`, expressing the probability on the scale from 0 to 1 (1 is used for datapoints where the `type_of_inscription_clean` was used)
 
-When we look at the dataset as whole, we see that from the 137,305 inscriptions, 127,773 (93 %) are classified in `type_of_inscription_auto` with probability equal to- or higher than 0.55. Using the 0.55 threshold, this proportion of the dataset can be used for further comparisons.
+When we look at the dataset as a whole, we see that from the 137,305 inscriptions, 127,773 (93 %) are classified in `type_of_inscription_auto` with probability equal to- or higher than 0.55. Using the 0.55 threshold, this proportion of the dataset can be used for further comparisons.
 
 
