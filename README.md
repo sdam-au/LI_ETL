@@ -2,10 +2,9 @@
 
 ---
 ## Authors
-* Vojtech Kase
-* Petra Hermankova [![](https://orcid.org/sites/default/files/images/orcid_16x16.png)](https://orcid.org/0000-0002-6349-0540), SDAM project, petra.hermankova@cas.au.dk
-* Adela Sobotkova
-
+* Vojtech Kase [![](https://orcid.org/sites/default/files/images/orcid_16x16.png)](http://orcid.org/0000-0002-6601-1605), Social Dynamics in the Ancient Mediterranean project, Aarhus University, vojtech.kase@gmail.com
+* Petra Hermankova [![](https://orcid.org/sites/default/files/images/orcid_16x16.png)](https://orcid.org/0000-0002-6349-0540), Social Dynamics in the Ancient Mediterranean project, Aarhus University 
+* Adela Sobotkova [![](https://orcid.org/sites/default/files/images/orcid_16x16.png)](https://orcid.org/0000-0002-4541-3963), Social Dynamics in the Ancient Mediterranean project, Aarhus University
 ## Description
 
 **EDHCS** dataset is an aggregate of EDH and EDCS epigraphic datasets. For inscriptions which are covered by both datasets, it contains attributes from both of them. In cases in which an inscription is available only in one dataset, it contains attributes only from that one dataset. Some crucial attributes are shared by both datasets:
@@ -22,11 +21,6 @@ A full, unfiltered, version of the dataset is currently available as a JSON file
 A subset of the full dataset, which contains only inscriptions which are in Latin, which are geolocated, which are geolocated within the borders of the Roman Empire and which are dated to the period from 50 BC to 350 AD, is available in the same public folder as a GeoJSON file:
 * URL for download: https://sciencedata.dk/public/a9237c5ea642d4714bcdefb03f70a1f4/EDHCSg.geojson
 * sddk command to read it into Python as GeoPandas GeoDataFrame object: `EDHCSg = sddk.read_file("EDHCSg.geojson", "gdf", "a9237c5ea642d4714bcdefb03f70a1f4")`
-
-## License
-
-## DOI
-[Here will be DOI or some other identifier once we have it]
 
 
 ---
@@ -47,6 +41,7 @@ A subset of the full dataset, which contains only inscriptions which are in Lati
 * Jupyter notebooks app/JupyterLab/JupyterHub
 * Python 3 additional libraries listed `requirements.txt`
 
+---
 ## Automatic assigment of `type_of_inscription`
 
 The EDHCS dataset consists of 137,305 inscriptions. These inscriptions might be classified as falling into certain inscription categories. However, the two source datasets (EDH and EDCS) employ a different approach to inscription classification. First of all, EDH uses English labels (e.g. "epitaph", "votive inscription" etc.), while EDCS uses Latin labels (e.g. "tituli_sepulcrales" or "tituli sacri"). In some cases, these types can be matched upon each other in a straightforward manner, in other cases this is not so simple. For instance, since the typological categories employed by EDCS are not mutually exclusive, some inscriptions are classified by means of five different labels. Furthermore, one category in the first source might correspond to several categories within the second source. For instance, the `owner/artist inscription` category in EDH corresponds either to `tituli possessionis` and `tituli fabricationis` in EDCS.
@@ -119,6 +114,6 @@ As a result of applying the model, we enriched the whole EDHCS dataset by 2 new 
 * `type_of_inscription_auto`, containing either the predicted label or - where available - the label from `type_of_inscription_clean` 
 * `type_of_inscription_auto_prob`, expressing the probability on the scale from 0 to 1 (1 is used for datapoints where the `type_of_inscription_clean` was used)
 
-When we look at the dataset as whole, we see that from the 137,305 inscriptions, 127,773 (93 %) are classified in `type_of_inscription_auto` with probability equal to- or higher than 0.55. Using the 0.55 threshold, this proportion of the dataset can be used for further comparisons.
+When we look at the dataset as a whole, we see that from the 137,305 inscriptions, 127,773 (93 %) are classified in `type_of_inscription_auto` with probability equal to- or higher than 0.55. Using the 0.55 threshold, this proportion of the dataset can be used for further comparisons.
 
 
