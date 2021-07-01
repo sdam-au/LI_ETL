@@ -1,4 +1,4 @@
-# LIRE
+# LIRE (Latin Inscriptions of the Roman Empire)
 
 ---
 ## Authors
