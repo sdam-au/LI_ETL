@@ -1,0 +1,155 @@
+LIRE_unfiltered dataset,attribute_name,dataset_source,source,created_by_script,data_type,description
+1,EDCS.ID,EDCS,http://db.edcs.eu/epigr/epikl_ergebnis.php,https://github.com/mqAncientHistory/EpigraphyScraperNotebook,character,EDCS-ID number. http://db.edcs.eu/epigr/epikl_ergebnis.php
+2,publication,EDCS,http://db.edcs.eu/epigr/epikl_ergebnis.php,https://github.com/mqAncientHistory/EpigraphyScraperNotebook,character,"Publikation: Bibliographical reference, edition"
+3,province,EDCS,http://db.edcs.eu/epigr/epikl_ergebnis.php,https://github.com/mqAncientHistory/EpigraphyScraperNotebook,character,Provinz: Roman province
+4,province_list,EDCS,province attribute,https://github.com/sdam-au/EDCS_ETL/blob/master/scripts/1_1_r_EDCS_merge_clean_attrs.Rmd,list,Name of provinces grouped as list; created from province
+5,place,EDCS,http://db.edcs.eu/epigr/epikl_ergebnis.php,https://github.com/mqAncientHistory/EpigraphyScraperNotebook,character,"Ort: Location of findspot, modern or ancient name, region name (separated by /)"
+6,place_list,EDCS,place attribute,https://github.com/sdam-au/EDCS_ETL/blob/master/scripts/1_1_r_EDCS_merge_clean_attrs.Rmd,list,Place names grouped as list; created from place
+7,end_yr_list,EDCS,dating to attribute,https://github.com/sdam-au/EDCS_ETL/blob/master/scripts/1_1_r_EDCS_merge_clean_attrs.Rmd,list,"List of dates representing Termius ante quem, YYYY representing year, where minus values are years BC."
+8,notes_dating,EDCS,inscription attribute,https://github.com/sdam-au/EDCS_ETL/blob/master/scripts/1_2_r_EDCS_cleaning_text.Rmd,character,"Result of a cleaning function, with extracted chronological notes  that were wrongly placed into the text of an inscription instead of into an attribute Commentary. "
+9,status_list,EDCS,status attribute,https://github.com/sdam-au/EDCS_ETL/blob/master/scripts/1_1_r_EDCS_merge_clean_attrs.Rmd,list,Status keywords grouped as unsorted list; created from status. In Latin.
+10,inscr_type,EDCS,status attribute,https://github.com/sdam-au/EDCS_ETL/blob/master/scripts/1_1_r_EDCS_merge_clean_attrs.Rmd,list,Inscription type as extracted from status keywords. In Latin.
+11,status_notation,EDCS,status attribute,https://github.com/sdam-au/EDCS_ETL/blob/master/scripts/1_1_r_EDCS_merge_clean_attrs.Rmd,list,Personal status keyword as extracted from status keywords. In Latin.
+12,inscr_process,EDCS,status attribute,https://github.com/sdam-au/EDCS_ETL/blob/master/scripts/1_1_r_EDCS_merge_clean_attrs.Rmd,list,Execution or writing technique of an inscription as extracted from status keywords. In Latin.
+13,notes_references,EDCS,inscription attribute,https://github.com/sdam-au/EDCS_ETL/blob/master/scripts/1_2_r_EDCS_cleaning_text.Rmd,character,"Result of a cleaning function, with extracted references that were wrongly placed into the text of an inscription instead of into an attribute Commentary. "
+14,notes_comments,EDCS,inscription attribute,https://github.com/sdam-au/EDCS_ETL/blob/master/scripts/1_2_r_EDCS_cleaning_text.Rmd,character,"Result of a cleaning function, with extracted comments and notes that were wrongly placed into the text of an inscription instead of into an attribute Commentary. "
+15,inscription,EDCS,http://db.edcs.eu/epigr/epikl_ergebnis.php,https://github.com/mqAncientHistory/EpigraphyScraperNotebook,character,Text of an inscription as published by EDCS.
+16,inscription_stripped_final,EDCS,inscription attribute,https://github.com/sdam-au/EDCS_ETL/blob/master/scripts/1_2_r_EDCS_cleaning_text.Rmd,character,"Result of a cleaning function, extracting wrongly placed comments and notes into the text of an inscription instead of into an attribute Commentary. "
+17,Links,EDCS,http://db.edcs.eu/epigr/epikl_ergebnis.php,https://github.com/mqAncientHistory/EpigraphyScraperNotebook,hyperlink,Hyperlinks to the records for the smae inscription in partner projects
+18,dating from,EDCS,http://db.edcs.eu/epigr/epikl_ergebnis.php,https://github.com/mqAncientHistory/EpigraphyScraperNotebook,character,"Datierung: Terminus post quem, YYYY representing year, where minus values are years BC."
+19,dating to,EDCS,http://db.edcs.eu/epigr/epikl_ergebnis.php,https://github.com/mqAncientHistory/EpigraphyScraperNotebook,character,"Datierung: Terminus ante quem, YYYY representing year, where minus values are years BC."
+20,status,EDCS,http://db.edcs.eu/epigr/epikl_ergebnis.php,https://github.com/mqAncientHistory/EpigraphyScraperNotebook,character,"Inschriftengattung / Personenstatus: attribute containing both inscription classification and information on status of people, or the execution and technique of inscription. Individual keywords separeted by semicolon. In Latin."
+21,Latitude,EDCS,http://db.edcs.eu/epigr/epikl_ergebnis.php,https://github.com/mqAncientHistory/EpigraphyScraperNotebook,numeric,"Geographic coordinate, Latitude."
+22,Longitude,EDCS,http://db.edcs.eu/epigr/epikl_ergebnis.php,https://github.com/mqAncientHistory/EpigraphyScraperNotebook,numeric,"Geographic coordinate, Longitude."
+23,photo,EDCS,http://db.edcs.eu/epigr/epikl_ergebnis.php,https://github.com/mqAncientHistory/EpigraphyScraperNotebook,hyperlink,Hyperlink to the multimedia database of the EDCS 
+24,Material,EDCS,http://db.edcs.eu/epigr/epikl_ergebnis.php,https://github.com/mqAncientHistory/EpigraphyScraperNotebook,character,Material: Material of the inscribed object. In Latin.
+25,Comment,EDCS,http://db.edcs.eu/epigr/epikl_ergebnis.php,https://github.com/mqAncientHistory/EpigraphyScraperNotebook,character,Written Commentary provided by EDCS.
+26,EDH-ID,EDH/LIRE,"Links attribute, Trismegistos TexRelation API https://www.trismegistos.org/dataservices/texrelations/?source=edh; https://edh-www.adw.uni-heidelberg.de/data/api",https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_1_py_EXTRACTION_edh-inscriptions-from-web-api.ipynb,character,EDH ID as listed in the Links attribute or as extracted from Trismegistos TexRelation API.  Six digit ID number of any given record in the EDH dataset.
+27,language_EDCS,EDCS,http://db.edcs.eu/epigr/epikl_ergebnis.php,https://github.com/mqAncientHistory/EpigraphyScraperNotebook,character,"Abbreviation for languages other than Latin, e.g. ""GR"" for Greek, extracted from the inscription attribute. Latin is default value (empty means Latin)"
+28,clean_text_interpretive_word_EDCS,EDCS,inscription attribute,https://github.com/sdam-au/EDCS_ETL/blob/master/scripts/1_2_r_EDCS_cleaning_text.Rmd,character,"Result of cleaning function, producing a conservative version of the text of an inscription. The text is as close to the preserved state of the text, without restorations and expansions."
+29,responsible_individual,EDH,https://edh-www.adw.uni-heidelberg.de/data/api,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_1_py_EXTRACTION_edh-inscriptions-from-web-api.ipynb,character,Individual editor responsible for the quality of the record in EDH.
+30,type_of_inscription,EDH,https://edh-www.adw.uni-heidelberg.de/data/api,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_1_py_EXTRACTION_edh-inscriptions-from-web-api.ipynb,character,Classification of an inscription. https://edh-www.adw.uni-heidelberg.de/hilfe/liste/inschriftgattung
+31,letter_size,EDH,https://edh-www.adw.uni-heidelberg.de/data/api,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_1_py_EXTRACTION_edh-inscriptions-from-web-api.ipynb,character,Height of fully preserved letters in cm. Decimal numbers: Entry using either a point or a comma
+32,literature,EDH,https://edh-www.adw.uni-heidelberg.de/data/api,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_1_py_EXTRACTION_edh-inscriptions-from-web-api.ipynb,character,"Bibliographical references, These are the special rules for citation for abbreviations, volume and year information as well as the counting of numbers:
+Année Épigraphique: AE year, number (always 4 digit); e.g.: AE 1983, 0825, AE 2001, 1720, AE 1969/70, 0384"
+33,work_status,EDH,https://edh-www.adw.uni-heidelberg.de/data/api,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_1_py_EXTRACTION_edh-inscriptions-from-web-api.ipynb,character,"The evidence used for verifying the readings are indicated in the „work status"" field; provisionally finished inscriptions (e.g. from regions, which are not the focus of systematic entry into EDH) are thus also easy to recognise as such for the user."
+34,height,EDH,https://edh-www.adw.uni-heidelberg.de/data/api,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_1_py_EXTRACTION_edh-inscriptions-from-web-api.ipynb,character,Greatest preserved height in cm. Entry of decimal numbers using either a point or a comma.
+35,diplomatic_text,EDH,https://edh-www.adw.uni-heidelberg.de/data/api,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_1_py_EXTRACTION_edh-inscriptions-from-web-api.ipynb,character,Text of an inscription in majuscule without modern restorations and expansions.
+36,people,EDH,https://edh-www.adw.uni-heidelberg.de/data/api,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_1_py_EXTRACTION_edh-inscriptions-from-web-api.ipynb,list,"Demographic related information containing attributes such as name, praenomen, nomen, cognomen, supernomen, tribus, origo, gender, status, occupation, age in years, months, days, hours."
+37,depth,EDH,https://edh-www.adw.uni-heidelberg.de/data/api,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_1_py_EXTRACTION_edh-inscriptions-from-web-api.ipynb,character,Greatest preserved depth in cm. Entry of decimal numbers using either a point or a comma.
+38,material,EDH,https://edh-www.adw.uni-heidelberg.de/data/api,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_1_py_EXTRACTION_edh-inscriptions-from-web-api.ipynb,character,Material of the inscribed object.
+39,type_of_monument,EDH,https://edh-www.adw.uni-heidelberg.de/data/api,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_1_py_EXTRACTION_edh-inscriptions-from-web-api.ipynb,character,"Classification of inscribed monument, https://edh-www.adw.uni-heidelberg.de/hilfe/liste/inschrifttraeger"
+40,province_label,EDH,https://edh-www.adw.uni-heidelberg.de/data/api,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_1_py_EXTRACTION_edh-inscriptions-from-web-api.ipynb,character,"Boundaries of the ancient provinces / Italic regions:
+As a rule the boundaries are those of the mid 2nd century AD (most inscriptions date from this period).
+Exception: Moesia inferior: boundaries of 3rd century AD (according to CIL III Suppl. tab. IV)
+The provinces of Late Antiquity are not used, but assigned geographically to the above mentioned provinces / regions."
+41,width,EDH,https://edh-www.adw.uni-heidelberg.de/data/api,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_1_py_EXTRACTION_edh-inscriptions-from-web-api.ipynb,character,Greatest preserved width in cm. Entry of decimal numbers using either a point or a comma.
+42,transcription,EDH,https://edh-www.adw.uni-heidelberg.de/data/api,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_1_py_EXTRACTION_edh-inscriptions-from-web-api.ipynb,character,Text of an inscription with modenr restorations and expansions.
+43,country,EDH,https://edh-www.adw.uni-heidelberg.de/data/api,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_1_py_EXTRACTION_edh-inscriptions-from-web-api.ipynb,character,Modern country
+44,uri,EDH,https://edh-www.adw.uni-heidelberg.de/data/api,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_1_py_EXTRACTION_edh-inscriptions-from-web-api.ipynb,hyperlink,Unique URI for each EDH record.
+45,findspot_ancient,EDH,https://edh-www.adw.uni-heidelberg.de/data/api,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_1_py_EXTRACTION_edh-inscriptions-from-web-api.ipynb,character,"Ancient findspot, spelling by R.J.A. Talbert, Barrington atlas of the Greek and Roman world (Princeton 2000) or CIL"
+46,last_update,EDH,https://edh-www.adw.uni-heidelberg.de/data/api,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_1_py_EXTRACTION_edh-inscriptions-from-web-api.ipynb,date,"Date of the latest revision, format YYYY-MM-DD"
+47,modern_region,EDH,https://edh-www.adw.uni-heidelberg.de/data/api,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_1_py_EXTRACTION_edh-inscriptions-from-web-api.ipynb,character,Large political administrative unit within the country. Spelling as in the language of the country.
+48,findspot_modern,EDH,https://edh-www.adw.uni-heidelberg.de/data/api,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_1_py_EXTRACTION_edh-inscriptions-from-web-api.ipynb,character,"Modern findspot, village, street etc. In the language of the country. Accents and Umlaute are ignored. Variant names: are included in the database, whenever they are used equally commonly nowadays; e.g. Jérica or Xèrica: ""Jérica (Xèrica)""."
+49,edh_geography_uri,EDH,https://edh-www.adw.uni-heidelberg.de/data/api,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_1_py_EXTRACTION_edh-inscriptions-from-web-api.ipynb,hyperlink,Unique URI for each EDH geographic record.
+50,commentary,EDH,https://edh-www.adw.uni-heidelberg.de/data/api,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_1_py_EXTRACTION_edh-inscriptions-from-web-api.ipynb,character,Contains extra explanations concerning the other database fields.
+51,trismegistos_uri,EDH,https://edh-www.adw.uni-heidelberg.de/data/api,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_1_py_EXTRACTION_edh-inscriptions-from-web-api.ipynb,hyperlink,Unique URI for each Trismegistos record.
+52,external_image_uris,EDH,https://edh-www.adw.uni-heidelberg.de/data/api,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_1_py_EXTRACTION_edh-inscriptions-from-web-api.ipynb,"list, hyperlink",Unique URI for each external photo record.
+53,fotos,EDH,https://edh-www.adw.uni-heidelberg.de/data/api,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_1_py_EXTRACTION_edh-inscriptions-from-web-api.ipynb,"list, hyperlink",Unique URI for each EDH photo record.
+54,idno_tm,EDH,https://edh-www.adw.uni-heidelberg.de/data/export,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_2_py_EXTRACTION_edh-xml_files.ipynb,numeric,One to 6 digit ID number of Trismegistos reference number
+55,placenames_refs,EDH,https://edh-www.adw.uni-heidelberg.de/data/export,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_2_py_EXTRACTION_edh-xml_files.ipynb,"list, hyperlink",Unique URI for each Trismegistos Placename record connected with the currect inscription.
+56,text_edition,EDH,https://edh-www.adw.uni-heidelberg.de/data/export,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_2_py_EXTRACTION_edh-xml_files.ipynb,character,Text of an inscription as preserved in Epidoc XML file
+57,origdate_text,EDH,https://edh-www.adw.uni-heidelberg.de/data/export,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_2_py_EXTRACTION_edh-xml_files.ipynb,character,"XML tag, writing  / engraving technique."
+58,layout_execution,EDH,https://edh-www.adw.uni-heidelberg.de/data/export,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_2_py_EXTRACTION_edh-xml_files.ipynb,numeric,Description of the writing technique.
+59,layout_execution_text,EDH,https://edh-www.adw.uni-heidelberg.de/data/export,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_2_py_EXTRACTION_edh-xml_files.ipynb,character,"Text of an XML tag, writing technique, in German."
+60,support_objecttype,EDH,https://edh-www.adw.uni-heidelberg.de/data/export,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_2_py_EXTRACTION_edh-xml_files.ipynb,numeric,"XML tag, using standardized Eagle vocabulary for type of inscribed object"
+61,support_objecttype_text,EDH,https://edh-www.adw.uni-heidelberg.de/data/export,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_2_py_EXTRACTION_edh-xml_files.ipynb,character,"Text of an XML tag, typology of inscribed object, in German."
+62,support_material,EDH,https://edh-www.adw.uni-heidelberg.de/data/export,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_2_py_EXTRACTION_edh-xml_files.ipynb,numeric,"XML tag, using standardized Eagle vocabulary for type of material"
+63,support_material_text,EDH,https://edh-www.adw.uni-heidelberg.de/data/export,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_2_py_EXTRACTION_edh-xml_files.ipynb,character,"Text of an XML tag, typology of inscribed material, in German."
+64,support_decoration,EDH,https://edh-www.adw.uni-heidelberg.de/data/export,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_2_py_EXTRACTION_edh-xml_files.ipynb,numeric,"XML tag, Epigraphic monuments with any kind of decoration. Also categorised as decoration are: hederae (indicating word break or simply as decoration), signs of the cross
+More elaborate (e.g. representational) decoration is described more extensively in the field ""Commentary""."
+65,keywords_term,EDH,https://edh-www.adw.uni-heidelberg.de/data/export,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_2_py_EXTRACTION_edh-xml_files.ipynb,numeric,"XML tag, using standardized Eagle vocabulary for type of an inscription"
+66,keywords_term_text,EDH,https://edh-www.adw.uni-heidelberg.de/data/export,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_2_py_EXTRACTION_edh-xml_files.ipynb,character,"Text of an XML tag, typology of inscription, in German."
+67,type_of_inscription_clean,EDH,EDH_merged_[timestamp].json,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_4_r_DATASET_ATTRIBUTES_CLEANING.Rmd,character,"Cleaned type of inscription, without additional symbols, such as ?"
+68,type_of_inscription_certainty,EDH,EDH_merged_[timestamp].json,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_4_r_DATASET_ATTRIBUTES_CLEANING.Rmd,character,"Certainty measure for type of inscription, extracted from ? present in the original attribute"
+69,height_cm,EDH,EDH_merged_[timestamp].json,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_4_r_DATASET_ATTRIBUTES_CLEANING.Rmd,numeric,"Cleaned maximum height in cm, saved as numeric without units"
+70,width_cm,EDH,EDH_merged_[timestamp].json,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_4_r_DATASET_ATTRIBUTES_CLEANING.Rmd,numeric,"Cleaned maximum width in cm, saved as numeric without units"
+71,depth_cm,EDH,EDH_merged_[timestamp].json,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_4_r_DATASET_ATTRIBUTES_CLEANING.Rmd,numeric,"Cleaned maximum depth in cm, saved as numeric without units"
+72,material_clean,EDH,EDH_merged_[timestamp].json,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_4_r_DATASET_ATTRIBUTES_CLEANING.Rmd,character,"Cleaned material, without additional symbols, such as ?"
+73,type_of_monument_clean,EDH,EDH_merged_[timestamp].json,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_4_r_DATASET_ATTRIBUTES_CLEANING.Rmd,character,"Cleaned type of monument, without additional symbols, such as ?"
+74,type_of_monument_certainty,EDH,EDH_merged_[timestamp].json,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_4_r_DATASET_ATTRIBUTES_CLEANING.Rmd,character,"Certainty measure for type of monument, extracted from ? present in the original attribute"
+75,province_label_clean,EDH,EDH_merged_[timestamp].json,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_4_r_DATASET_ATTRIBUTES_CLEANING.Rmd,character,"Cleaned province name, without additional symbols, such as ?"
+76,province_label_certainty,EDH,EDH_merged_[timestamp].json,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_4_r_DATASET_ATTRIBUTES_CLEANING.Rmd,character,"Certainty measure for province, extracted from ? present in the original attribute"
+77,country_clean,EDH,EDH_merged_[timestamp].json,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_4_r_DATASET_ATTRIBUTES_CLEANING.Rmd,character,"Cleaned modern country, without additional symbols, such as ?"
+78,country_certainty,EDH,EDH_merged_[timestamp].json,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_4_r_DATASET_ATTRIBUTES_CLEANING.Rmd,character,"Certainty measure for modern country, extracted from ? present in the original attribute"
+79,findspot_ancient_clean,EDH,EDH_merged_[timestamp].json,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_4_r_DATASET_ATTRIBUTES_CLEANING.Rmd,character,"Cleaned ancient findspot, without additional symbols, such as ?"
+80,findspot_ancient_certainty,EDH,EDH_merged_[timestamp].json,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_4_r_DATASET_ATTRIBUTES_CLEANING.Rmd,character,"Certainty measure for ancient findspot, extracted from ? present in the original attribute"
+81,modern_region_clean,EDH,EDH_merged_[timestamp].json,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_4_r_DATASET_ATTRIBUTES_CLEANING.Rmd,character,"Cleaned modern region, without additional symbols, such as ?"
+82,modern_region_certainty,EDH,EDH_merged_[timestamp].json,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_4_r_DATASET_ATTRIBUTES_CLEANING.Rmd,character,"Certainty measure for modern region, extracted from ? present in the original attribute"
+83,findspot_modern_clean,EDH,EDH_merged_[timestamp].json,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_4_r_DATASET_ATTRIBUTES_CLEANING.Rmd,character,"Cleaned modern findspot, without additional symbols, such as ?"
+84,findspot_modern_certainty,EDH,EDH_merged_[timestamp].json,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_4_r_DATASET_ATTRIBUTES_CLEANING.Rmd,character,"Certainty measure for modern findspot, extracted from ? present in the original attribute"
+85,findspot_clean,EDH,EDH_merged_[timestamp].json,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_4_r_DATASET_ATTRIBUTES_CLEANING.Rmd,character,"Cleaned findspot, without additional symbols, such as ?"
+86,findspot_certainty,EDH,EDH_merged_[timestamp].json,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_4_r_DATASET_ATTRIBUTES_CLEANING.Rmd,character,"Certainty measure for findspot, extracted from ? present in the original attribute"
+87,origdate_text_clean,EDH,EDH_merged_[timestamp].json,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_4_r_DATASET_ATTRIBUTES_CLEANING.Rmd,character,Attributes containing temporal information in Epidoc XML file.
+88,clean_text_conservative,EDH,EDH_attrs_cleaned_[timestamp].json,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_5_r_TEXT_INSCRIPTION_CLEANING.Rmd,character,"Result of cleaning function, producing a conservative version of the text of an inscription. The text is as close to the preserved state of the text, without restorations and expansions."
+89,clean_text_interpretive_sentence,EDH,EDH_attrs_cleaned_[timestamp].json,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_5_r_TEXT_INSCRIPTION_CLEANING.Rmd,character,"Result of cleaning function, producing an interpretative version of the text of an inscription. The text contains all restorations and expansions in order to otain as rich version of the text as possible. Interpunction between sentences is not reserved. If the text was available in EDH and EDCS, we kept the version provided by EDH."
+90,findspot,EDH,https://edh-www.adw.uni-heidelberg.de/data/api,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_1_py_EXTRACTION_edh-inscriptions-from-web-api.ipynb,character,"Findspot of the inscription (village, street), Town or city quarter of a politically independent municipality or of a city (e.g. town quarter, incorporated village, hamlet) (cf. in contrast: politically independent municipality or city = ""modern findspot"")
+Smaller geographic unit (e.g. street, area of land, mountain, river)
+or building (e.g. fort, city wall, church)"
+91,year_of_find,EDH,https://edh-www.adw.uni-heidelberg.de/data/api,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_1_py_EXTRACTION_edh-inscriptions-from-web-api.ipynb,character,"Year of the find, YYYY format."
+92,present_location,EDH,https://edh-www.adw.uni-heidelberg.de/data/api,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_1_py_EXTRACTION_edh-inscriptions-from-web-api.ipynb,character,Present location of the monument
+93,religion,EDH,https://edh-www.adw.uni-heidelberg.de/data/api,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_1_py_EXTRACTION_edh-inscriptions-from-web-api.ipynb,character,Historical relevant data - religion related keywords
+94,geography,EDH,https://edh-www.adw.uni-heidelberg.de/data/api,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_1_py_EXTRACTION_edh-inscriptions-from-web-api.ipynb,character,Inscriptions with geographical names.
+95,social_economic_legal_history,EDH,https://edh-www.adw.uni-heidelberg.de/data/api,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_1_py_EXTRACTION_edh-inscriptions-from-web-api.ipynb,character,"Inscriptions, which include information relevant to social, economic and legal history"
+96,military,EDH,https://edh-www.adw.uni-heidelberg.de/data/api,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_1_py_EXTRACTION_edh-inscriptions-from-web-api.ipynb,character,"Historical relevant data - military related keywords, troup names. Inscriptions with names of military units"
+97,not_after,EDH/LIRE,https://edh-www.adw.uni-heidelberg.de/data/api,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_1_py_EXTRACTION_edh-inscriptions-from-web-api.ipynb,numeric,"Dating by years, YYYY format, Entry of a year number B.C. requires the use of a minus sign in front of the year(-). Terminus ante quem. Date as recorded by EDH where present, or as attribute 'dating to' in EDCS."
+98,language,EDH/LIRE,https://edh-www.adw.uni-heidelberg.de/data/api,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_1_py_EXTRACTION_edh-inscriptions-from-web-api.ipynb,character,"Language of an inscription, the entry is made according to the language of the text of the inscription, not according to the letters, in which it was written. e.g. HD024096 Only Latin and Greek letters are entered; letters of other languages are only entered in the field ""Language"" and noted in the field ""Commentary"".
+e.g. HD000379. Language as recorded by EDH where available, or where not available the data are substituted with records from EDCS attribute Language."
+99,not_before,EDH/LIRE,https://edh-www.adw.uni-heidelberg.de/data/api,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_1_py_EXTRACTION_edh-inscriptions-from-web-api.ipynb,numeric,"Dating by years, YYYY format, Entry of a year number B.C. requires the use of a minus sign in front of the year(-). Terminus post quem. Date as recorded by EDH where present, or as attribute 'dating from' in EDCS."
+100,coordinates,EDH/LIRE,EDH_geo_dict_2020-09-15.json / https://edh-www.adw.uni-heidelberg.de/download/edhGeographicData.json,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_3_py_MERGING_API_GEO_and_XML.ipynb,"list, geopoint","Latitude and Longitude of a findspot of inscription, as recorded by EDH where present, and in combined attributes Latitude and Longitude from EDCS."
+101,clean_text_interpretive_word,EDH/LIRE,EDH_attrs_cleaned_[timestamp].json,https://github.com/sdam-au/EDH_ETL/blob/master/scripts/1_5_r_TEXT_INSCRIPTION_CLEANING.Rmd,character,"Result of cleaning function, producing an interpretative version of the text of an inscription. The text contains all restorations and expansions in order to otain as rich version of the text as possible. Interpunction between sentences is reserved."
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,EDCS,,,,
+,,EDCS,,,,
