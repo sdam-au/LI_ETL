@@ -4,6 +4,7 @@ scikit-learn
 tabulate
 nltk
 geoplot
+pyinterval
 sddk
 tempun
 
