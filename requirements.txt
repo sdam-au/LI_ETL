@@ -5,8 +5,12 @@ tabulate
 nltk
 geoplot
 pyinterval
+google-auth
+gspread
+gspread_dataframe
 sddk
 tempun
+
 
 # more restrictive, if needed:
 #sddk>=3.0
