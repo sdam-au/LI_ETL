@@ -33,17 +33,29 @@ provinces
 
 
 ```{r load-network-data}
-#
+library(sdam)
+library(jsonlite)
+library(getPass)
+user <-  "616760@au.dk"
+resp = request("orbis_nodes_enriched.json", path="/sharingin/648597@au.dk/SDAM_root/SDAM_data/urban", method="GET", cred=c(user, getPass("your sciencedata password: ")))
+
+list_json <- jsonlite::fromJSON(resp)
+orbis_nodes = as_tibble(list_json)
+head(orbis_nodes) # does not look well, no time to fix, downloaded file manually
 ```
 
-# Task 3: Get cities with inscriptions and make long and spatial
 
+# Task 3: Get cities with inscriptions and make long and spatial
 ```{r load-city-data}
 cities <- read_csv("data/orbis_nodes_enriched.csv")
 
 
 cities_l <- pivot_longer(data=cities, 
-                         cols=c(LIRE_per1_N, LIRE_per2_N, LIRE_per3_N),
+                         cols=c(LIRE_per0_N,
+                                LIRE_per1_N, 
+                                LIRE_per2_N, 
+                                LIRE_per3_N,
+                                LIRE_per4_N),
                          names_to = "century",
                          values_to = "InscriptionNo" )
 cities <- cities %>% 
@@ -108,7 +120,7 @@ Lire_3 <- cities$X1[which(cities$LIRE_per3_N > 100)]
 ```
 
 
-# Visualisations - 0-100 AD Centrality
+## Visualisations - 0-100 AD Centrality
 ```{r inscription-count-degree-centrality}
 library(mapview)
 mapviewOptions(viewer.suppress = FALSE) 
@@ -142,8 +154,6 @@ tm_shape(cities[cities$X1 %in% Lire_1,]) +  # most inscriptionsin 1c AD
 
 ## Betweenness
 ```{r 100-AD-betweenness}
-tmap_mode(mode = "plot" )
-
 bb_100 <- tm_shape(provinces) +
   tm_polygons(col="cornsilk2", border.alpha = 0) +
 tm_shape(cities_g[cities_g$X1 %in% top_20_bb,]) +  # highest 20 degree values
@@ -160,12 +170,10 @@ tm_shape(cities[cities$X1 %in% Lire_1,]) +  # most inscriptionsin 1c AD
              alpha = 0.7)+
   tm_layout(main.title = "AD0-100: cities with >100 inscriptions",
             legend.outside = TRUE)
-
+bb_100
 ```
 ## Gravity
 ```{r gravity}
-tmap_mode(mode = "plot" )
-
 gravity_100 <- tm_shape(provinces) +
   tm_polygons(col="cornsilk2", border.alpha = 0) +
 tm_shape(cities_g[cities_g$X1 %in% top_20_bb_gravity,]) +  # highest 20 degree values
@@ -206,7 +214,7 @@ tm_shape(cities[cities$X1 %in% Lire_1,]) +  # most inscriptionsin 1c AD
             legend.outside = TRUE)
 ```
 
-# Visualisations - 100-200 AD Centrality
+## Visualisations - 100-200 AD Centrality
 ```{r 200-AD-centrality-degree}
 
 degree_200 <- tm_shape(provinces) +
@@ -296,7 +304,7 @@ tm_shape(cities[cities$X1 %in% Lire_2,]) +  # most inscriptionsin 1c AD
 ```
 
 
-# Visualisations - 200-300 AD
+## Visualisations - 200-300 AD
 ```{r centrality-degree-300}
 degree_300 <- tm_shape(provinces) +
   tm_polygons(col="cornsilk2", border.alpha = 0) +
@@ -392,6 +400,118 @@ tmap_mode(current.mode)
 ```{r}
 current.mode <- tmap_mode("plot")
 tmap_arrange(degree_300, bb_300, gravity_300, expense_300, asp = NA)
+tmap_mode(current.mode)
+```
+
+
+# Task 6: Map increase in production over time
+
+
+```{r increase}
+Lire_increase1 <- cities$X1[which(cities$LIRE_per1_N>cities$LIRE_per0_N)]
+Lire_increase2 <- cities$X1[which(cities$LIRE_per2_N>cities$LIRE_per1_N)]
+Lire_increase3 <- cities$X1[which(cities$LIRE_per3_N>cities$LIRE_per2_N)]
+Lire_increase4 <- cities$X1[which(cities$LIRE_per4_N>cities$LIRE_per3_N)]
+cities$increase1 <- cities$LIRE_per1_N-cities$LIRE_per0_N
+cities$increase2 <- cities$LIRE_per2_N-cities$LIRE_per1_N
+cities$increase3 <- cities$LIRE_per3_N-cities$LIRE_per2_N
+cities$increase4 <- cities$LIRE_per4_N-cities$LIRE_per3_N
+
+```
+
+## -50BC - AD100
+```{r 1st-c}
+tmap_mode("plot")
+increase_100 <- tm_shape(provinces) +
+  tm_polygons(col="cornsilk2", border.alpha = 0) +
+tm_shape(cities_g[cities_g$X1 %in% top_20_bb,]) +  # highest 20 degree values
+  tm_symbols(size = "bb",
+             col = "darkred",
+             scale = 1,
+              title.size = "Betweenness centrality")+
+tm_shape(cities[cities$X1 %in% Lire_increase1,]) +  # most inscriptionsin 1c AD
+  tm_symbols(id = "increase1", 
+             size = "increase1", 
+             col = "red",
+             scale = 4,
+             title.size = "Additional inscriptions",
+             alpha = 0.7)+
+  tm_layout(main.title = "50BC -AD100: inscription production growth",
+            legend.outside = TRUE)
+increase_100
+```
+
+
+## 100-200
+```{r 200AD-incrase-vs-betweenness}
+tmap_mode("plot")
+increase_200 <- tm_shape(provinces) +
+  tm_polygons(col="cornsilk2", border.alpha = 0) +
+tm_shape(cities_g[cities_g$X1 %in% top_20_bb,]) +  # highest 20 degree values
+  tm_symbols(size = "bb",
+             col = "darkred",
+             scale = 1,
+              title.size = "Betweenness centrality")+
+tm_shape(cities[cities$X1 %in% Lire_increase2,]) +  # most inscriptionsin 1c AD
+  tm_symbols(id = "increase2", 
+             size = "increase2", 
+             col = "red",
+             scale = 4,
+             title.size = "Additional inscriptions",
+             alpha = 0.7)+
+  tm_layout(main.title = "AD100-200: inscription production growth",
+            legend.outside = TRUE)
+increase_200
+
+```
+## AD200-300
+```{r 300AD-increase-vs-betweenness}
+tmap_mode("plot")
+increase_300 <- tm_shape(provinces) +
+  tm_polygons(col="cornsilk2", border.alpha = 0) +
+tm_shape(cities_g[cities_g$X1 %in% top_20_bb,]) +  # highest 20 degree values
+  tm_symbols(size = "bb",
+             col = "darkred",
+             scale = 1,
+              title.size = "Betweenness centrality")+
+tm_shape(cities[cities$X1 %in% Lire_increase3,]) +  # most inscriptionsin 1c AD
+  tm_symbols(id = "increase3", 
+             size = "increase3", 
+             col = "red",
+             scale = 4,
+             title.size = "Additional inscriptions",
+             alpha = 0.7)+
+  tm_layout(main.title = "AD200-300: inscription production growth",
+            legend.outside = TRUE)
+increase_300
+```
+
+## AD300-350
+```{r 350AD-increase-vs-betweenness}
+tmap_mode("plot")
+increase_350 <- tm_shape(provinces) +
+  tm_polygons(col="cornsilk2", border.alpha = 0) +
+tm_shape(cities_g[cities_g$X1 %in% top_20_bb,]) +  # highest 20 degree values
+  tm_symbols(size = "bb",
+             col = "darkred",
+             scale = 1,
+              title.size = "Betweenness centrality")+
+tm_shape(cities[cities$X1 %in% Lire_increase4,]) +  # most inscriptionsin 1c AD
+  tm_symbols(id = "increase4", 
+             size = "increase4", 
+             col = "red",
+             scale = 4,
+             title.size = "Additional inscriptions",
+             alpha = 0.7)+
+  tm_layout(main.title = "AD300-350: inscription production growth",
+            legend.outside = TRUE)
+increase_350
+```
+
+# Summary of growth and Betweenness AD 0 - 350
+```{r}
+current.mode <- tmap_mode("plot")
+tmap_arrange(increase_100, increase_200,increase_300, increase_350, asp = NA)
 tmap_mode(current.mode)
 ```
 
