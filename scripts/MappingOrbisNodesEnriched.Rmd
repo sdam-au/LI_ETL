@@ -65,12 +65,14 @@ cities_g <- cities_l %>%
 cities
 cities_g
 plot(provinces$geometry);plot(cities$geometry, add=TRUE)  
+?list()
+?replace_na()
 ```
 
 # Task 4: Make a neat map of cities with inscription numbers over time
 ```{r view-flats, fig.width = 12}
 library(tmap)
-tmap_options(limits = c(facets.view = 3)) # we want to view 5 periods
+tmap_options(limits = c(facets.view = 5)) # we want to view 5 periods
 tmap_mode(mode = "view" )
 tm_shape(provinces) +
   tm_polygons(col="cornsilk2", border.alpha = 0) +
@@ -147,7 +149,7 @@ tm_shape(cities[cities$X1 %in% Lire_1,]) +  # most inscriptionsin 1c AD
              col = "red",
              scale = 3,
              title.size = "Number of inscriptions",
-             alpha = 0.7)+
+             alpha = 0.5)+
   tm_layout(main.title = "AD0-100: cities with >100 inscriptions",
             legend.outside = TRUE)
 ```
@@ -167,8 +169,8 @@ tm_shape(cities[cities$X1 %in% Lire_1,]) +  # most inscriptionsin 1c AD
              col = "red",
              scale = 3,
              title.size = "Number of inscriptions",
-             alpha = 0.7)+
-  tm_layout(main.title = "AD0-100: cities with >100 inscriptions",
+             alpha = 0.5)+
+  tm_layout(#main.title = "AD0-100: cities with >100 inscriptions",
             legend.outside = TRUE)
 bb_100
 ```
@@ -187,8 +189,8 @@ tm_shape(cities[cities$X1 %in% Lire_1,]) +  # most inscriptionsin 1c AD
              col = "red",
              scale = 3,
              title.size = "Number of inscriptions",
-             alpha = 0.7)+
-  tm_layout(main.title = "AD0-100: cities with >100 inscriptions",
+             alpha = 0.5)+
+  tm_layout(#main.title = "AD0-100: cities with >100 inscriptions",
             legend.outside = TRUE)
 ```
 ## Expense
@@ -209,8 +211,8 @@ tm_shape(cities[cities$X1 %in% Lire_1,]) +  # most inscriptionsin 1c AD
              col = "red",
              scale = 3,
              title.size = "Number of inscriptions",
-             alpha = 0.7)+
-  tm_layout(main.title = "AD0-100: cities with >100 inscriptions",
+             alpha = 0.5)+
+  tm_layout(#main.title = "AD0-100: cities with >100 inscriptions",
             legend.outside = TRUE)
 ```
 
@@ -230,7 +232,7 @@ tm_shape(cities[cities$X1 %in% Lire_2,]) +  # most inscriptionsin 32 AD
              col = "red",
              scale = 3,
              title.size = "Number of inscriptions",
-             alpha = 0.7)+
+             alpha = 0.5)+
   tm_layout(main.title = "AD100-200: Cities with >100 inscriptions",
             legend.outside = TRUE)
 ```
@@ -252,8 +254,8 @@ tm_shape(cities[cities$X1 %in% Lire_2,]) +  # most inscriptionsin 2c AD
              col = "red",
              scale = 3,
              title.size = "Number of inscriptions",
-             alpha = 0.7)+
-  tm_layout(main.title = "AD100-200: Cities with >100 inscriptions",
+             alpha = 0.5)+
+  tm_layout(#main.title = "AD100-200: Cities with >100 inscriptions",
             legend.outside = TRUE)
 
 ```
@@ -276,8 +278,8 @@ tm_shape(cities[cities$X1 %in% Lire_2,]) +  # most inscriptionsin 2c AD
              col = "red",
              scale = 3,
              title.size = "Number of inscriptions",
-             alpha = 0.7)+
-  tm_layout(main.title = "AD100-200: Cities with >100 inscriptions",
+             alpha = 0.5)+
+  tm_layout(#main.title = "AD100-200: Cities with >100 inscriptions",
             legend.outside = TRUE)
 ```
 ## Expense 2nd century
@@ -298,8 +300,8 @@ tm_shape(cities[cities$X1 %in% Lire_2,]) +  # most inscriptionsin 1c AD
              col = "red",
              scale = 3,
              title.size = "Number of inscriptions",
-             alpha = 0.7)+
-  tm_layout(main.title = "AD100-200: Cities with >100 inscriptions",
+             alpha = 0.5)+
+  tm_layout(#main.title = "AD100-200: Cities with >100 inscriptions",
             legend.outside = TRUE)
 ```
 
@@ -319,7 +321,7 @@ tm_shape(cities[cities$X1 %in% Lire_3,]) +  # most inscriptions in 3c AD
              col = "red",
              scale = 3,
              title.size = "Number of inscriptions",
-             alpha = 0.7)+
+             alpha = 0.5)+
   tm_layout(main.title = "AD200-300: Cities with >100 inscriptions",
             legend.outside = TRUE)
 ```
@@ -338,8 +340,8 @@ tm_shape(cities[cities$X1 %in% Lire_3,]) +  # most inscriptions in 3c AD
              col = "red",
              scale = 3,
              title.size = "Number of inscriptions",
-             alpha = 0.7)+
-  tm_layout(main.title = "AD200-300: Cities with >100 inscriptions",
+             alpha = 0.5)+
+  tm_layout(#main.title = "AD200-300: Cities with >100 inscriptions",
             legend.outside = TRUE)
 ```
 
@@ -359,8 +361,8 @@ tm_shape(cities[cities$X1 %in% Lire_3,]) +  # most inscriptions in 3c AD
              col = "red",
              scale = 3,
              title.size = "Number of inscriptions",
-             alpha = 0.7)+
-  tm_layout(main.title = "AD200-300: Cities with >100 inscriptions",
+             alpha = 0.5)+
+  tm_layout(#main.title = "AD200-300: Cities with >100 inscriptions",
             legend.outside = TRUE)
 ```
 
@@ -380,8 +382,8 @@ tm_shape(cities[cities$X1 %in% Lire_3,]) +  # most inscriptionsin 1c AD
              col = "red",
              scale = 3,
              title.size = "Number of inscriptions",
-             alpha = 0.7)+
-  tm_layout(main.title = "AD200-300: Cities with >100 inscriptions",
+             alpha = 0.5)+
+  tm_layout(#main.title = "AD200-300: Cities with >100 inscriptions",
             legend.outside = TRUE)
 ```
 # Summary AD 0 - 100
@@ -436,7 +438,7 @@ tm_shape(cities[cities$X1 %in% Lire_increase1,]) +  # most inscriptionsin 1c AD
              scale = 4,
              title.size = "Additional inscriptions",
              alpha = 0.7)+
-  tm_layout(main.title = "50BC -AD100: inscription production growth",
+  tm_layout(main.title = "50BC -AD100: increase over previous period",
             legend.outside = TRUE)
 increase_100
 ```
@@ -459,7 +461,7 @@ tm_shape(cities[cities$X1 %in% Lire_increase2,]) +  # most inscriptionsin 1c AD
              scale = 4,
              title.size = "Additional inscriptions",
              alpha = 0.7)+
-  tm_layout(main.title = "AD100-200: inscription production growth",
+  tm_layout(main.title = "AD100-200: increase over previous period",
             legend.outside = TRUE)
 increase_200
 
@@ -467,6 +469,7 @@ increase_200
 ## AD200-300
 ```{r 300AD-increase-vs-betweenness}
 tmap_mode("plot")
+#tmap_mode("view")
 increase_300 <- tm_shape(provinces) +
   tm_polygons(col="cornsilk2", border.alpha = 0) +
 tm_shape(cities_g[cities_g$X1 %in% top_20_bb,]) +  # highest 20 degree values
@@ -475,13 +478,13 @@ tm_shape(cities_g[cities_g$X1 %in% top_20_bb,]) +  # highest 20 degree values
              scale = 1,
               title.size = "Betweenness centrality")+
 tm_shape(cities[cities$X1 %in% Lire_increase3,]) +  # most inscriptionsin 1c AD
-  tm_symbols(id = "increase3", 
+  tm_symbols(id = "incrase3",
              size = "increase3", 
              col = "red",
              scale = 4,
              title.size = "Additional inscriptions",
              alpha = 0.7)+
-  tm_layout(main.title = "AD200-300: inscription production growth",
+  tm_layout(main.title = "AD200-300: increase over previous period",
             legend.outside = TRUE)
 increase_300
 ```
@@ -503,7 +506,7 @@ tm_shape(cities[cities$X1 %in% Lire_increase4,]) +  # most inscriptionsin 1c AD
              scale = 4,
              title.size = "Additional inscriptions",
              alpha = 0.7)+
-  tm_layout(main.title = "AD300-350: inscription production growth",
+  tm_layout(main.title = "AD300-350: increase over previous period",
             legend.outside = TRUE)
 increase_350
 ```
@@ -516,5 +519,72 @@ tmap_mode(current.mode)
 ```
 
 Next steps:
-Select the nearest node to a given site with 100+ inscriptions in given century 
+1. make animation
+2. Select the nearest node to a given site with 100+ inscriptions in given century 
 Tabulate the measures for the proximate node -- correlation with what NA properties? 
+
+3.Select Judea in 2nd c, Dacia in 3rd c 
+## LIRE inscriptions
+
+```{r}
+colnames(cities)
+colnames(provinces)
+sort(provinces$name)
+here()
+library(sf)
+
+lire <- st_read("data/LIREg.geojson")
+lire_sm <- lire %>% 
+  #filter(province == "Iudaea" | province == "Dacia") %>% 
+  select(EDH.ID, EDCS.ID, type_of_inscription_auto, province_label_clean, country_clean, clean_text_interpretive_word_EDCS, not_after, not_before)
+
+hist(lire_sm$not_before) # postquem
+hist(lire_sm$not_after) #antequem
+
+
+# Single province - Judea
+lire_sm%>% 
+ # filter(province_label_clean == "Iudaea")  %>% 
+   filter(province_label_clean == "Palestina")  %>% 
+ # filter(province_label_clean == "Dacia") %>% 
+  filter(not_before >= 100 ) %>% 
+  select(province_label_clean, type_of_inscription_auto) %>% 
+  group_by(province_label_clean, type_of_inscription_auto) %>% 
+  #count()
+  summarize(n=n()) %>% 
+  arrange(desc(n))
+
+lire_sm%>% 
+  #filter(province_label_clean == "Iudaea")  %>% 
+  #filter(province_label_clean == "Dacia") %>% 
+  #filter(province_label_clean == "Africa Proconsularis") %>%
+  filter(province_label_clean == "Latium et Campania (Regio I)" |province_label_clean == "Roma" ) %>% 
+  filter(not_after <= 400 ) %>% 
+  select(province_label_clean, type_of_inscription_auto) %>% 
+  group_by(province_label_clean, type_of_inscription_auto) %>% 
+  #count()
+  summarize(n=n()) %>% 
+  arrange(desc(n))
+
+sort(unique(lire_sm$province_label_clean))
+
+plot(lire_sm$geometry)
+
+library(tmap)
+tmap_mode(mode = "view" )
+tm_shape(provinces) +
+  tm_polygons(col = "cornsilk2", border.alpha = 0) +
+tm_shape(cities[cities$X1 %in% Lire_2,]) +  # most inscriptionsin 1c AD
+  tm_symbols(id ="label", 
+             size = "LIRE_per2_N", 
+             col = "red",
+             scale = 3,
+             title.size = "Number of inscriptions",
+             alpha = 0.5)+
+  tm_layout(main.title = "AD0-100: cities with >100 inscriptions",
+            legend.outside = TRUE)
+# tm_shape(lire_sm) +
+#   tm_symbols(id  = "province_label_clean")
+  
+```
+
