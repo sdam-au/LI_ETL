@@ -1,0 +1,718 @@
+---
+title: "LIRE Dis Manibus formula"
+author: "Petra Hermankova"
+date: "9/24/2021"
+output: html_document
+---
+
+
+```{r setup, echo=TRUE, message=FALSE}
+library(tidyverse)
+#library(sdam)
+library(jsonlite)
+library(dplyr)
+library(reticulate)
+library(sf)
+library(leaflet)
+```
+
+```{r}
+use_condaenv("RStudio") # Use this to use a conda environment
+#use_python("/usr/local/bin/python")
+```
+
+```{python}
+import geopandas as gpd # https://vincent.doba.fr/posts/20210407_install-fiona-on-windows/ & https://geopandas.org/getting_started/install.html Issues with geopandas on windows. The requirements.txt file might be able to install the packages, if not you should look into these geopandas links.
+import requests
+import seaborn as sns
+import matplotlib.colors as mcolors
+import matplotlib.pyplot as plt
+from scipy.stats import trapz
+import scipy
+#import nltk
+import json
+import tempun
+#import sddk
+import numpy as np
+import pandas as pd
+pd.options.display.max_columns = 1000  # to see all columns
+```
+
+```{r}
+LIRE<- sf::st_read("https://zenodo.org/record/5074774/files/LIREg.geojson?download=1")
+```
+
+
+## Text preparation
+
+Converting the text of inscriptions to lowercase
+```{r}
+LIRE <- LIRE %>% 
+  mutate(clean_text_interpretive_word_lowercase = str_to_lower(LIRE$clean_text_interpretive_word))
+```
+
+# Dis Manibus epigraphic formula in space and time
+
+Typically occurs on funerary inscriptions, invocation of the underworld gods.
+
+Canonic Versions:
+
+D M
+D M S
+Dis Manibus
+Diis Manibus
+Dis Manibus Sacrum
+Diis Manibus Sacrum
+
+## Searching for all *typical* variants of the formula
+
+```{r}
+dis_manibus_regex <- "\\bd m s\\b|\\bd m\\b|di{1,2}s manibus sacrum|di{1,2}s manibus"
+
+dis_manibus<- str_subset(LIRE$clean_text_interpretive_word_lowercase, dis_manibus_regex)
+
+# separating them in a new attribute
+LIRE<- LIRE %>% 
+  mutate(form_dis_manibus = str_extract(LIRE$clean_text_interpretive_word_lowercase, dis_manibus_regex))
+
+# overview
+table(str_extract(LIRE$clean_text_interpretive_word_lowercase, dis_manibus_regex))
+```
+
+```{r}
+# capturing context - 5 words before the formula and 5 words after the formula
+LIRE<- LIRE %>% 
+  mutate(dis_manibus_in_context_10w = str_extract(LIRE$clean_text_interpretive_word_lowercase, "(\\w*\\s){0,6}\\bd m s\\b|\\bd m\\b|di{1,2}s manibus sacrum|di{1,2}s manibus(\\w*\\s){0,6}")) 
+```
+
+Subsetting dataset to contain only records with formula
+```{r}
+#non-empty dis manibus attribute
+LIRE_DM <- LIRE %>% 
+  filter(!is.na(form_dis_manibus))
+```
+
+
+## Type of formula by province - cummulative
+```{r, fig.height=10}
+LIRE_DM %>% 
+  #count(province_label_clean, form_dis_manibus, sort=T) %>% 
+  ggplot(aes(y=province_label_clean)) + 
+  geom_bar(aes(fill=form_dis_manibus)) +
+  #coord_cartesian(xlim=c(0,1700)) +
+  theme_minimal() +
+  theme(text = element_text(size=12)) +
+  labs(y="Roman province", x="Formula", title= "Dis Manibus formula by province", subtitle = ggtitle(paste("n =", nrow(LIRE_DM), "inscriptions (LIRE)"))) 
+  #geom_label(aes(label= form_dis_manibus)) +
+  #geom_label(aes(label = form_dis_manibus), colour = "black", fontface = "bold", hjust = -0.1) 
+```
+
+
+## Map of Dis Manibus occurences - cummulative
+```{r}
+# preparation of subsets
+# dis manibus formula
+LIRE_dis_manibus <- LIRE_DM %>% 
+  filter(form_dis_manibus == "dis manibus")
+
+# diis manibus formula
+LIRE_diis_manibus <- LIRE_DM %>% 
+  filter(form_dis_manibus == "diis manibus")
+
+# dis manibus sacrum formula
+LIRE_dis_manibus_sacrum <- LIRE_DM %>% 
+  filter(form_dis_manibus == "dis manibus sacrum")
+
+# diis manibus sacrum formula
+LIRE_diis_manibus_sacrum <- LIRE_DM %>% 
+  filter(form_dis_manibus == "diis manibus sacrum")
+
+#abbreviated dis manibus formula
+LIRE_d_m <- LIRE_DM %>% 
+  filter(form_dis_manibus == "d m")
+
+#abbreviated dis manibus sacrum formula
+LIRE_d_m_s <- LIRE_DM %>% 
+  filter(form_dis_manibus == "d m s")
+```
+
+
+```{r}
+DM_map<- #head(LIRE_DM, 100) %>% 
+  leaflet(LIRE_DM) %>% 
+  leaflet(width="100%") %>%
+  #addProviderTiles("Stamen.Watercolor")%>% # Add CartoDB map tiles
+  addProviderTiles("Stamen.TerrainBackground")%>% # Add CartoDB map tiles
+  #addProviderTiles("Esri.WorldTopoMap", group = "Topo") %>%
+  #addProviderTiles("Esri.WorldImagery", group = "ESRI Aerial") %>%
+  setView( lng = 12.9239625, lat = 41.9515694, zoom = 3.5 ) %>%
+  #setMaxBounds(lat1=43.633977, lng1 =-11.227926 , lat2=35.133882 , lng2=50.882336) %>%
+  #addPolylines(data = roads, color = "purple", weight = 1, opacity = 0.7) %>% 
+  
+  addCircles(lng = LIRE_dis_manibus$Longitude, 
+             lat = LIRE_dis_manibus$Latitude, opacity = 0.3, radius = 0.5, fill = T , color = "blue" , fillColor = "blue",) %>%
+  addCircles(lng = LIRE_dis_manibus_sacrum$Longitude, 
+             lat = LIRE_dis_manibus_sacrum$Latitude, opacity = 0.3, radius = 0.5, fill = T , color = "red" , fillColor = "red",) %>%
+    addCircles(lng = LIRE_diis_manibus$Longitude, 
+             lat = LIRE_diis_manibus$Latitude, opacity = 0.3, radius = 0.5, fill = T , color = "black" , fillColor = "black",) %>%
+  addCircles(lng = LIRE_diis_manibus_sacrum$Longitude, 
+             lat = LIRE_diis_manibus_sacrum$Latitude, opacity = 0.3, radius = 0.5, fill = T , color = "orange" , fillColor = "orange",) %>%
+  addCircles(lng = LIRE_d_m_s$Longitude, 
+             lat = LIRE_d_m_s$Latitude, opacity = 0.3, radius = 0.5, fill = T , color = "yellow" , fillColor = "yellow",)  %>% 
+  addCircles(lng = LIRE_d_m$Longitude, 
+             lat = LIRE_d_m$Latitude, opacity = 0.3, radius = 0.5, fill = T , color = "green" , fillColor = "green",) %>% 
+
+  #addAwesomeMarkers(~LIRE$longitude, ~LIRE$latitude, icon=icons) %>% 
+  addLegend(position = "bottomright",
+  colors = c("Blue", "Black", "Green", "Red", "Orange", "Yellow"),
+  labels = c("dis manibus", "diis manibus", "d m", "dis manibus sacrum", "diis manibus sacrum", "d m s"), opacity = 1,
+  title = "Dis Manibus formula (LIRE)" ) %>% 
+  addScaleBar(position="bottomleft")
+
+DM_map
+```
+
+
+## Dis manibus formula preferences
+
+Preparation of the dataset - unique people records
+
+```{r}
+LIRE_people<- LIRE_DM %>% 
+  unnest(people)
+nrow(LIRE_people)
+```
+
+
+
+### Formula by gender of person on inscription
+```{r}
+LIRE_people %>% 
+  #filter(form_dis_manibus == "dis manibus" | form_dis_manibus == "dis manibus sacrum") %>% 
+  mutate(gender_clean = str_replace_all(gender, "W\\?", "female")) %>%
+  mutate(gender_clean = str_replace_all(gender_clean, "M\\?", "male")) %>%
+  count(gender_clean, form_dis_manibus, sort=T) %>% 
+  mutate(freq = n/(sum(n)/100)) %>% 
+  ggplot(aes(y=gender_clean, x=n)) +
+  geom_col(aes(fill=form_dis_manibus)) +
+  #geom_label(aes(label = round(freq, 2)), hjust=0.3, size = 3.5) +
+  theme_linedraw(base_size = 12) +
+  labs(y="Gender", x="Formula", title= "Dis Manibus formula by gender", subtitle = ggtitle(paste("n =", length(LIRE_DM$people), "inscriptions (LIRE)"))) 
+
+
+```
+
+### Formula by status of person on inscription
+```{r, fig.width=14, fig.height=10}
+
+LIRE_people %>% 
+  #filter(form_dis_manibus == "dis manibus" | form_dis_manibus == "dis manibus sacrum") %>% 
+  mutate(status_clean = str_replace_all(status, "\\?", "")) %>% 
+  count(status_clean, form_dis_manibus, sort=T) %>% 
+  ggplot(aes(y=status_clean, x=n)) +
+  geom_col(aes(fill=form_dis_manibus)) +
+  #coord_cartesian(xlim = c(0, 15800)) +
+  labs(y="Status", x="Individuals", title= "Dis Manibus formula by personal status", subtitle = ggtitle(paste("n =", nrow(LIRE_people), "individuals (LIRE)"))) +
+  theme(legend.position = c(0.9, 0.15)) +
+  scale_fill_discrete(name="Formula")
+```
+
+### Formula by age of person on inscription
+```{r}
+LIRE_people %>% 
+  mutate(age_yr = as.numeric(`age: years`)) %>% 
+  filter(!is.na(age_yr)) %>% 
+  count(age_yr, form_dis_manibus, sort=T) %>% 
+  ggplot(aes(age_yr, n)) +
+  geom_point(aes(colour=form_dis_manibus)) +
+  labs(y="Individuals", x="Years at death", title= "Dis Manibus formula by age of the deceased", subtitle = ggtitle(paste("n =", nrow(LIRE_people), "individuals (LIRE)")))
+  
+  
+```
+
+### Formula by type of inscribed monument
+```{r}
+LIRE_DM %>% 
+  count(type_of_monument_clean, form_dis_manibus, sort = T) %>% 
+  ggplot(aes(y=type_of_monument_clean, x=n)) + 
+  geom_col(aes(fill=form_dis_manibus)) +
+  theme_minimal() +
+  labs(y="Inscribed object", x="Inscriptions", title= "Dis Manibus formula by inscribed object", subtitle = ggtitle(paste("n =", nrow(LIRE_DM), "inscriptions (LIRE)")))
+```
+
+### Formula by type of inscribed material
+```{r}
+LIRE_DM %>% 
+  count(material_clean, form_dis_manibus, sort = T) %>% 
+  ggplot(aes(y=material_clean, x=n)) + 
+  geom_col(aes(fill=form_dis_manibus)) +
+  theme_minimal() +
+  labs(y="Inscribed material", x="Inscriptions", title= "Dis Manibus formula by inscribed material", subtitle = ggtitle(paste("n =", nrow(LIRE_DM), "inscriptions (LIRE)")))
+```
+
+# Temporal usage of the formulae
+
+
+```{r}
+# preparation of the dataset
+LIRE_DM$not_before <- as.numeric(as.character(LIRE_DM$not_before))
+LIRE_DM$not_after <- as.numeric(as.character(LIRE_DM$not_after))
+```
+
+
+```{r}
+LIRE_mini <- LIRE %>% 
+  select(not_after, not_before, clean_text_interpretive_word, clean_text_interpretive_word_lowercase, form_dis_manibus, type_of_inscription_auto, Latitude, Longitude)
+```
+
+```{r}
+# How many inscriptions have both dates?
+LIRE_dated_mini <- LIRE_mini %>% 
+  filter(not_before != "NaN" & not_after != "NaN")
+```
+
+```{python}
+LIRE_dated = r.LIRE_dated_mini
+len(LIRE_dated)
+```
+
+```{python}
+# Generate a list of 1000 random dates for each inscription in the dataset
+LIRE_dated["random_dates"] = LIRE_dated.apply(lambda row: tempun.model_date(
+    row["not_before"], row["not_after"], size=1000,), axis=1)
+```
+
+```{r}
+# saving as r-object
+py$LIRE_dated -> LIRE_dated_mini_sim
+```
+
+
+
+```{python}
+# Count random dates in temporal timeblocks in a specified time range (from 200 BC to 600 AD, temporal blocks by 25 years)
+LIRE_complete_simulations = tempun.timeblocks_from_randoms(
+    LIRE_dated, "random_dates", [-200, 600, 25])
+```
+
+```{python}
+LIRE_complete_simulations[1:2]
+```
+
+
+```{python}
+# Figure 1
+# plot all the dataset to see the epigraphic production in time
+plt.style.use("seaborn-white")
+plt.rcParams['figure.dpi'] = 300
+plt.rcParams['font.size'] = 10
+tab_colors_list = list(mcolors.TABLEAU_COLORS.keys())
+fig, ax = plt.subplots(figsize=(14, 6), tight_layout=True)
+tempun.plot_timeblocks_data(
+    LIRE_complete_simulations, ax=ax, color="blue", label=f"LIRE (n={len(LIRE_dated)})")
+    
+ax.set_xlabel("Year", weight="bold")
+ax.set_ylabel("Count", weight="bold")
+ax.set_title("Total epigraphic production over time (LIRE)")
+ax.legend(title="Data source", title_fontsize="large", bbox_to_anchor=(1, 1), loc='upper right')
+#plt.axvline(x=212, linewidth=0.5, color = 'orange', linestyle='dashed')
+#fig.suptitle(f'Comparison of epigraphic production over time', fontsize=16,fontweight="bold")
+#plt.savefig('../Fig1_Epi_production_time.png')
+fig
+```
+
+
+```{python}
+# Inscriptions by their type over time, LIRE
+simulations_by_type_len_LIRE = []
+for ins_type in r.LIRE_dated["form_dis_manibus"].unique():
+    if ins_type != "NULL":
+        subset_df = LIRE_dated[LIRE_dated["form_dis_manibus"] == ins_type]
+        simulations_by_type_len_LIRE.append((ins_type, len(subset_df)))
+simulations_by_type_len_LIRE = sorted(
+    simulations_by_type_len_LIRE, key=lambda x: x[1], reverse=True)
+simulations_by_type_len_LIRE
+simulations_by_type_LIRE = []
+for ins_type_tup in simulations_by_type_len_LIRE[:8]:
+    subset_df = LIRE_dated[LIRE_dated["form_dis_manibus"]
+                          == ins_type_tup[0]]
+    simulations = tempun.timeblocks_from_randoms(
+        subset_df, "random_dates", [-200, 600, 25])
+    ins_type_N = len(subset_df)
+    simulations_by_type_LIRE.append([ins_type_tup[0], ins_type_N, simulations])
+simulations_by_type_LIRE = sorted(
+    simulations_by_type_LIRE, key=lambda x: x[1], reverse=True)
+date_vars_by_instypes = []
+for ins_type_tup in simulations_by_type_len_LIRE[:10]:
+    subset_df = LIRE_dated[LIRE_dated["form_dis_manibus"]
+                          == ins_type_tup[0]]
+    date_vars = []
+    for n in range(100):
+        date_vars.append(
+            [date_var[n] for date_var in subset_df["random_dates"] if date_var != None])
+    date_vars_by_instypes.append(date_vars)
+```
+
+```{python}
+simulations_by_type_len_LIRE
+```
+
+```{python}
+# Figure 2
+plt.style.use("seaborn-white")
+plt.rcParams['figure.dpi'] = 300
+plt.rcParams['font.size'] = 10
+fig, [ax1, ax2] = plt.subplots(2, 1, figsize=(14, 12), tight_layout=True)
+for ins_type_sims, color in zip(simulations_by_type_LIRE, tab_colors_list[:len(simulations_by_type_LIRE)]):
+    tempun.plot_timeblocks_data(ins_type_sims[2], ax=ax1, color=color)
+ax1.set_xlabel("Year", weight="bold")
+ax1.set_ylabel("Count", weight="bold")
+ax1.set_title(f"`Dis manibus` formula on inscriptions over time (LIRE, n={len(LIRE_dated)})", weight="bold")
+markers = [plt.Line2D([0, 0], [0, 0], color=color, lw=4)
+           for color in tab_colors_list[:len(simulations_by_type_LIRE)]]
+legend_labels_LIRE = [tup[0] + " (n={})".format(str(tup[1])) for tup in simulations_by_type_LIRE]
+ax1.legend(markers, legend_labels_LIRE, numpoints=1,  
+           title=f"Formula types (LIRE n={len(LIRE_dated)})", title_fontsize="large", bbox_to_anchor=(1, 1), loc='upper right')
+#plt.savefig('../Fig2_Typologies_comparison_time.png')
+fig
+```
+
+
+
+## Periods 
+```{python}
+# periods definitions
+periods = {  # to avoid overlaps, startdates are postponed by one year, when needed
+    "Late Roman Republic": {"startdate": -200, "enddate": -26, "duration": 175},
+    "Julio-Claudian dyn.": {"startdate": -27, "enddate": 68, "duration": 95},
+    "Flavian dyn.": {"startdate": 69, "enddate": 96,"duration": 28},
+    "Nerva-Antonine dyn.": {"startdate": 97, "enddate": 192, "duration": 96},
+    "Severan dyn.": {"startdate": 193, "enddate": 235, "duration": 43},
+    "Military emperors": {"startdate": 236, "enddate": 284,"duration": 49},
+    "Tetrarchy-Constantine I": {"startdate": 285, "enddate": 337,"duration": 53},
+    "Late Roman Empire": {"startdate": 338, "enddate": 600,"duration": 263}
+}
+timeblocks_periods = [(periods[period]["startdate"],
+                       periods[period]["enddate"],
+                       periods[period]["duration"]) for period in periods]
+timeblocks_periods
+```
+
+```{python}
+# periods definitions
+periods = {  # to avoid overlaps, startdates are postponed by one year, when needed
+    "First c. AD": {"startdate": 1, "enddate": 100, "duration": 100},
+    "Second c. AD": {"startdate": 101, "enddate": 200, "duration": 100},
+    "Third c. AD": {"startdate": 201, "enddate": 300,"duration": 100}
+}
+timeblocks_periods = [(periods[period]["startdate"],
+                       periods[period]["enddate"],
+                       periods[period]["duration"]) for period in periods]
+timeblocks_periods
+```
+
+
+```{python}
+def date_to_str(date):
+    if date < 0:
+        date = str(abs(date)) + " BC"
+    else:
+        date = "AD " + str(date)
+    return date
+periods_labels = []
+for period in periods.keys():
+    start = date_to_str(periods[period]["startdate"])
+    end = date_to_str(periods[period]["enddate"])
+    periods_labels.append(period + "\n({0}-{1})".format(start, end))
+periods_labels
+```
+
+```{python}
+# loading shapefile from Pleaides for the largest extent of the Roman Empire, AD 117
+# source: https://raw.githubusercontent.com/pelagios/magis-pleiades-regions/main/pleiades-regions-magis-pelagios.geojson
+pleiades_regions = gpd.read_file('https://raw.githubusercontent.com/pelagios/magis-pleiades-regions/main/pleiades-regions-magis-pelagios.geojson', driver='GeoJSON')
+RE_merged = pleiades_regions.unary_union
+```
+
+```{python}
+def get_date_var(randoms):
+    try:
+        return randoms[0]
+    except:
+        return None
+# selecting one random date out of the 1000 version
+LIRE_dated["date_var_1"] = LIRE_dated["random_dates"].apply(get_date_var)
+```
+
+```{r}
+# updating the values in existing r-object
+py$LIRE_dated -> LIRE_dated
+```
+
+```{python}
+# modifying coordinates in LIRE to fit the script
+# LIRE_dated[['Longitude', 'Latitude']] = pd.DataFrame(LIRE_dated.coordinates. tolist(), index=LIRE_dated.index)
+```
+
+```{python}
+LIRE_dated_df_by_periods = []
+for period in timeblocks_periods:
+    LIRE_dated_sample = LIRE_dated[LIRE_dated["date_var_1"].between(
+        period[0], period[1])]
+    # tranforming LIRE as geodataframe
+    LIRE_dated_sample = LIRE_dated_sample[LIRE_dated_sample["Latitude"].notnull()]
+    LIRE_dated_sample = gpd.GeoDataFrame(LIRE_dated_sample, geometry=gpd.points_from_xy(LIRE_dated_sample["Longitude"], LIRE_dated_sample["Latitude"]))
+    # selecting only those dated and within borders of the Empire (the largest extent in AD 117)
+    LIRE_dated_sample = LIRE_dated_sample[LIRE_dated_sample.within(RE_merged)]
+    LIRE_dated_df_by_periods.append(LIRE_dated_sample)
+```
+
+```{python}
+# Figure 3
+# plot LIRE inscriptions with location in 8 plots grouped by period
+plt.style.use("seaborn-white")
+plt.rcParams['figure.dpi'] = 300
+plt.rcParams['font.size'] = 10
+fig, axs  = plt.subplots(4, 2, figsize=(7, 7), tight_layout=True)
+contexts_pct = {}
+    
+for df_LIRE, ax, period in zip(LIRE_dated_df_by_periods, axs.ravel(), periods_labels):
+    pleiades_regions.plot(ax=ax, color="lightgray")
+    df_LIRE.plot(markersize=0.04, color="darkblue", ax=ax, alpha=0.2, label=len(df_LIRE))
+    ax.set_title(period, fontsize=6)
+    ax.set_axis_off()
+    markers = [plt.Line2D([0,0],[0,0],color=color, marker=".", linestyle="") for color in ["darkblue", "red"]]
+    legend_labels = ["LIRE (n={0})".format(str(len(df_LIRE)))]
+    
+    ax.legend(markers, legend_labels, numpoints=1, bbox_to_anchor=(0.6, 1), loc='upper left', fontsize=5)
+   
+plt.tight_layout(pad=0)
+plt.subplots_adjust(wspace=0.0, hspace=0.0)
+#fig.suptitle(f'Spatial extent of the epigraphic production by historic period', fontsize=8, fontweight="bold")
+#plt.savefig('../figures/Fig3_Formulae_production_periods.png')
+fig
+```
+
+# Combined two most common types as time slices
+
+```{python}
+dis_manibus = LIRE_dated[LIRE_dated["form_dis_manibus"] == "dis manibus"]
+len(dis_manibus)
+```
+```{python}
+diis_manibus = LIRE_dated[LIRE_dated["form_dis_manibus"] == "diis manibus"]
+len(diis_manibus)
+```
+
+```{python}
+dis_manibus_sac = LIRE_dated[LIRE_dated["form_dis_manibus"] == "dis manibus sacrum"]
+len(dis_manibus_sac)
+```
+```{python}
+diis_manibus_sac = LIRE_dated[LIRE_dated["form_dis_manibus"] == "diis manibus sacrum"]
+len(diis_manibus_sac)
+```
+
+
+
+```{python}
+LIRE_dated_df_by_periods_dm = []
+for period in timeblocks_periods:
+    LIRE_dated_sample_dm = dis_manibus[dis_manibus["date_var_1"].between(
+        period[0], period[1])]
+    # transforming LIRE as geodataframe
+    LIRE_dated_sample_dm = LIRE_dated_sample_dm[LIRE_dated_sample_dm["Latitude"].notnull()]
+    LIRE_dated_sample_dm = gpd.GeoDataFrame(LIRE_dated_sample_dm, geometry=gpd.points_from_xy(LIRE_dated_sample_dm["Longitude"], LIRE_dated_sample_dm["Latitude"]))
+    # selecting only those dated and within borders of the Empire (the largest extent in AD 117)
+    LIRE_dated_sample_dm = LIRE_dated_sample_dm[LIRE_dated_sample_dm.within(RE_merged)]
+    LIRE_dated_df_by_periods_dm.append(LIRE_dated_sample_dm)
+```
+
+```{python}
+LIRE_dated_df_by_periods_dm
+```
+
+
+```{python}
+LIRE_dated_df_by_periods_dms = []
+for period in timeblocks_periods:
+    LIRE_dated_sample_dms = dis_manibus_sac[dis_manibus_sac["date_var_1"].between(
+        period[0], period[1])]
+    # transforming LIRE as geodataframe
+    LIRE_dated_sample_dms = LIRE_dated_sample_dms[LIRE_dated_sample_dms["Latitude"].notnull()]
+    LIRE_dated_sample_dms = gpd.GeoDataFrame(LIRE_dated_sample_dms, geometry=gpd.points_from_xy(LIRE_dated_sample_dms["Longitude"], LIRE_dated_sample_dms["Latitude"]))
+    # selecting only those dated and within borders of the Empire (the largest extent in AD 117)
+    LIRE_dated_sample_dms = LIRE_dated_sample_dms[LIRE_dated_sample_dms.within(RE_merged)]
+    LIRE_dated_df_by_periods_dms.append(LIRE_dated_sample_dms)
+```
+
+```{python}
+LIRE_dated_df_by_periods_dms
+```
+
+
+```{python}
+# Figure 4
+# plot LIRE inscriptions with location in 8 plots grouped by period
+plt.style.use("seaborn-white")
+plt.rcParams['figure.dpi'] = 300
+plt.rcParams['font.size'] = 12
+#fig, axs  = plt.subplots(4, 2, figsize=(7, 7), tight_layout=True)
+fig, axs  = plt.subplots(3, 1, figsize=(10, 10), tight_layout=True)
+contexts_pct = {}
+    
+for df_LIRE_DMs, df_LIRE_DM, ax, period in zip(LIRE_dated_df_by_periods_dms, LIRE_dated_df_by_periods_dm, axs.ravel(), periods_labels):
+    pleiades_regions.plot(ax=ax, color="lightgray")
+    df_LIRE_DM.plot(markersize=0.04, color="darkblue", ax=ax, alpha=0.3, label=len(df_LIRE_DMs))
+    df_LIRE_DMs.plot(markersize=0.04, color="red", ax=ax, alpha=0.3, label=len(df_LIRE_DM))
+    ax.set_title(period, fontsize=6)
+    ax.set_axis_off()
+    markers = [plt.Line2D([0,0],[0,0],color=color, marker=".", linestyle="") for color in ["darkblue", "red"]]
+    legend_labels = ["dis manibus (n={0})".format(str(len(df_LIRE_DM))), 
+                     "dis manibus sacrum (n={0})".format(str(len(df_LIRE_DMs)))]
+    
+    ax.legend(markers, legend_labels, numpoints=1, bbox_to_anchor=(0.6, 1), loc='upper left', fontsize=5)
+   
+plt.tight_layout(pad=0)
+plt.subplots_adjust(wspace=0.0, hspace=0.0)
+fig.suptitle(f'Spatial distribution of "dis manibus" formula in the first three centuries AD (LIRE dataset)', fontsize=8, fontweight="bold")
+#plt.savefig('Fig4_Formulae_compared_production_periods.png')
+plt.savefig('Fig4_Formulae_compared_production_century.png')
+fig
+```
+
+
+
+# Creating three snaphots in time
+
+From simulated dates take 1-100, 101-200, 201-300 and then create a network.
+
+```{r}
+LIRE_dated[80]
+```
+
+```{r}
+LIRE_1CAD<- LIRE_dated %>% 
+  filter(date_var_1 > 0 & date_var_1 < 101) 
+
+LIRE_2CAD<- LIRE_dated %>% 
+  filter(date_var_1 > 100 & date_var_1 < 201)
+
+LIRE_3CAD<- LIRE_dated %>% 
+  filter(date_var_1 > 200 & date_var_1 < 301)
+```
+
+
+# Clustering of formulae in three time slices
+
+```{r, 1CAD}
+# Damerau-Levenshtein method - allows for substitution, deletion, insertion and transposition of individual characters
+
+dl_distance_1CAD<- stringdistmatrix(LIRE_1CAD$form_dis_manibus, LIRE_1CAD$form_dis_manibus, method= "dl")
+table(dl_distance_1CAD)
+dl_distance_1CAD
+
+
+# renaming rows and columns
+idnames <- unique(as.character(LIRE_1CAD$id))
+rownames(dl_distance_1CAD) <- idnames
+colnames(dl_distance_1CAD) <- idnames
+
+# Clustering the distance results in a dendrogram
+hc_1CAD <- hclust(as.dist(dl_distance_1CAD), method = "complete")
+
+plot(hc_1CAD, main ="Clustering of 'Dis Manibus' inscriptions in the 1st c. AD", xlab="Clusters")
+rect.hclust(hc_1CAD, k=3)
+
+```
+
+```{r, 2CAD}
+# Damerau-Levenshtein method - allows for substitution, deletion, insertion and transposition of individual characters
+
+dl_distance_2CAD<- stringdistmatrix(LIRE_2CAD$form_dis_manibus, LIRE_2CAD$form_dis_manibus, method= "dl")
+table(dl_distance_2CAD)
+dl_distance_2CAD
+
+
+# renaming rows and columns
+idnames <- unique(as.character(LIRE_2CAD$id))
+rownames(dl_distance_2CAD) <- idnames
+colnames(dl_distance_2CAD) <- idnames
+
+# Clustering the distance results in a dendrogram
+hc_2CAD <- hclust(as.dist(dl_distance_2CAD), method = "complete")
+
+plot(hc_2CAD, main ="Clustering of 'Dis Manibus' inscriptions in the 2nd c. AD", xlab="Clusters")
+rect.hclust(hc_2CAD, k=3)
+```
+
+```{r, 3CAD}
+# Damerau-Levenshtein method - allows for substitution, deletion, insertion and transposition of individual characters
+
+dl_distance_3CAD<- stringdistmatrix(LIRE_3CAD$form_dis_manibus, LIRE_3CAD$form_dis_manibus, method= "dl")
+table(dl_distance_3CAD)
+dl_distance_3CAD
+
+
+# renaming rows and columns
+idnames <- unique(as.character(LIRE_3CAD$id))
+rownames(dl_distance_3CAD) <- idnames
+colnames(dl_distance_3CAD) <- idnames
+
+# Clustering the distance results in a dendrogram
+hc_3CAD <- hclust(as.dist(dl_distance_3CAD), method = "complete")
+
+plot(hc_3CAD, main ="Clustering of 'Dis Manibus' inscriptions in the 3rd c. AD", xlab="Clusters")
+rect.hclust(hc_3CAD, k=3)
+```
+
+
+## Three networks in time
+
+https://yulab-smu.top/treedata-book/chapter4.html
+```{r}
+# convert 'hclust' to 'phylo' object
+phylo_tree <- as.phylo(hc_1CAD)
+
+# get edges
+graph_edges <- phylo_tree$edge
+
+# get graph from edge list
+graph_net <- graph.edgelist(graph_edges)
+
+# plot graph
+plot(graph_net)
+```
+
+
+```{r}
+dl_distance_1CADdf<- as.data.frame(dl_distance_1CAD)
+dl_distance_2CADdf<- as.data.frame(dl_distance_2CAD)
+dl_distance_3CADdf<- as.data.frame(dl_distance_3CAD)
+```
+
+```{r, fig.width=30}
+dl_distance_1CADdf[1:3,1:3]
+
+library(igraph)
+
+network1 <- graph_from_incidence_matrix(dl_distance_1CADdf, weighted=TRUE)
+plot(network1)
+
+
+
+
+```
+```{r}
+network2 <- graph_from_incidence_matrix(dl_distance_2CADdf, weighted=TRUE)
+plot(network2)
+
+```
+
+```{r}
+network3 <- graph_from_incidence_matrix(dl_distance_3CADdf, weighted=TRUE)
+plot(network3)
+```
+
+
+
