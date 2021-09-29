@@ -32,16 +32,16 @@ provinces
 # Task 2: Get spatial data for network
 
 
-```{r load-network-data}
-library(sdam)
-library(jsonlite)
-library(getPass)
-user <-  "616760@au.dk"
-resp = request("orbis_nodes_enriched.json", path="/sharingin/648597@au.dk/SDAM_root/SDAM_data/urban", method="GET", cred=c(user, getPass("your sciencedata password: ")))
-
-list_json <- jsonlite::fromJSON(resp)
-orbis_nodes = as_tibble(list_json)
-head(orbis_nodes) # does not look well, no time to fix, downloaded file manually
+```{r load-network-data, eval = false}
+# library(sdam)
+# library(jsonlite)
+# library(getPass)
+# user <-  "616760@au.dk"
+# resp = request("orbis_nodes_enriched.json", path="/sharingin/648597@au.dk/SDAM_root/SDAM_data/urban", method="GET", cred=c(user, getPass("your sciencedata password: ")))
+# 
+# list_json <- jsonlite::fromJSON(resp)
+# orbis_nodes = as_tibble(list_json)
+# head(orbis_nodes) # does not look well, no time to fix, downloaded file manually
 ```
 
 
@@ -69,7 +69,7 @@ plot(provinces$geometry);plot(cities$geometry, add=TRUE)
 ?replace_na()
 ```
 
-# Task 4: Make a neat map of cities with inscription numbers over time
+# Task 4a: Make a neat map of cities with inscription numbers over time
 ```{r view-flats, fig.width = 12}
 library(tmap)
 tmap_options(limits = c(facets.view = 5)) # we want to view 5 periods
@@ -86,6 +86,24 @@ tm_shape(cities_g) +
             legend.outside = TRUE)
 ```
 
+
+# Task 4b: Make a neat map of cities with inscription numbers over time per 1000 inhabitants
+```{r view-flats, fig.width = 12}
+cities_g$insc_per_1000pax <- cities_g$InscriptionNo/cities_g$pop_est
+library(tmap)
+tmap_options(limits = c(facets.view = 5)) # we want to view 5 periods
+tmap_mode(mode = "view" )
+tm_shape(provinces) +
+  tm_polygons(col="cornsilk2", border.alpha = 0) +
+tm_shape(cities_g) +
+  tm_facets(by = "century",
+            ncol=1, nrow = 3)+
+  tm_symbols(size = "insc_per_1000pax", col = "darkblue",
+             scale = 4,
+             title.size = "inscription count per 1000 inhabitants") +
+  tm_layout(main.title = "Nodes by inscription numbers",
+            legend.outside = TRUE)
+```
 # Pridej k hornim facetkam degree, betweenness, and gravity 
 
 # Task 5: Map betweenness and gravity values on the network
@@ -150,7 +168,7 @@ tm_shape(cities[cities$X1 %in% Lire_1,]) +  # most inscriptionsin 1c AD
              scale = 3,
              title.size = "Number of inscriptions",
              alpha = 0.5)+
-  tm_layout(main.title = "AD0-100: cities with >100 inscriptions",
+  tm_layout(#main.title = "AD0-100: cities with >100 inscriptions",
             legend.outside = TRUE)
 ```
 
@@ -233,7 +251,7 @@ tm_shape(cities[cities$X1 %in% Lire_2,]) +  # most inscriptionsin 32 AD
              scale = 3,
              title.size = "Number of inscriptions",
              alpha = 0.5)+
-  tm_layout(main.title = "AD100-200: Cities with >100 inscriptions",
+  tm_layout(#main.title = "AD100-200: Cities with >100 inscriptions",
             legend.outside = TRUE)
 ```
 
@@ -322,7 +340,7 @@ tm_shape(cities[cities$X1 %in% Lire_3,]) +  # most inscriptions in 3c AD
              scale = 3,
              title.size = "Number of inscriptions",
              alpha = 0.5)+
-  tm_layout(main.title = "AD200-300: Cities with >100 inscriptions",
+  tm_layout(#main.title = "AD200-300: Cities with >100 inscriptions",
             legend.outside = TRUE)
 ```
 
@@ -511,7 +529,7 @@ tm_shape(cities[cities$X1 %in% Lire_increase4,]) +  # most inscriptionsin 1c AD
 increase_350
 ```
 
-# Summary of growth and Betweenness AD 0 - 350
+## Summary of growth and Betweenness AD 0 - 350
 ```{r}
 current.mode <- tmap_mode("plot")
 tmap_arrange(increase_100, increase_200,increase_300, increase_350, asp = NA)
@@ -524,13 +542,66 @@ Next steps:
 Tabulate the measures for the proximate node -- correlation with what NA properties? 
 
 3.Select Judea in 2nd c, Dacia in 3rd c 
-## LIRE inscriptions
+
+# Task 7: Map increase in production per 1000 residents over time
+
+How many inscriptions per 1000 people in an urban area?
+```{r}
+cities$increase1ppax <- (cities$LIRE_per1_N-cities$LIRE_per0_N)/(cities$pop_est/1000)
+hist(cities$increase1ppax)
+cities$increase2ppax <- (cities$LIRE_per2_N-cities$LIRE_per1_N)/(cities$pop_est/1000)
+cities$increase3ppax <- (cities$LIRE_per3_N-cities$LIRE_per2_N)/(cities$pop_est/1000)
+cities$increase4ppax <- (cities$LIRE_per4_N-cities$LIRE_per3_N)/(cities$pop_est/1000)
+```
+
+## Change in production per century per 1000 inhabitants 
+```{r}
+tmap_mode("plot")
+inscr_attribute <- "increase1ppax"
+tm_shape(provinces) +
+  tm_polygons(col="cornsilk2", border.alpha = 0) +
+tm_shape(cities_g[cities_g$X1 %in% top_20_bb,]) +  # highest 20 degree values
+  tm_symbols(size = "bb",
+             col = "darkred",
+             scale = 1,
+              title.size = "Betweenness centrality")+
+tm_shape(cities[cities$X1 %in% Lire_increase1,]) +  # most inscriptionsin 1c AD
+  tm_symbols(id = inscr_attribute, 
+             size = inscr_attribute, 
+             col = "red",
+             scale = 3,
+             title.size = "Additional inscriptions",
+             alpha = 0.7)+
+  tm_layout(main.title = "Increase per 1000 residents",
+            legend.outside = TRUE)
+
+```
+
+## Doublecheck cities
+
 
 ```{r}
 colnames(cities)
+library(DT)
+cities %>%
+  st_drop_geometry() %>% 
+  select(label, pop_est, LIRE_per1_N, increase1, increase1ppax) %>% 
+  filter(label == "Roma" | label == "Pompeii" |label == "Aquincum") %>% 
+  arrange(desc(pop_est)) %>% 
+  datatable()
+```
+## Overview of change over time with population held static 
+```{r}
+
+```
+
+
+# LIRE inscriptions
+
+```{r}
 colnames(provinces)
 sort(provinces$name)
-here()
+
 library(sf)
 
 lire <- st_read("data/LIREg.geojson")
@@ -586,5 +657,21 @@ tm_shape(cities[cities$X1 %in% Lire_2,]) +  # most inscriptionsin 1c AD
 # tm_shape(lire_sm) +
 #   tm_symbols(id  = "province_label_clean")
   
+```
+
+
+
+# Correlation
+```{r}
+nodes <- cities %>% 
+  st_drop_geometry() %>% 
+  select(label, pop_est:degree,increase1ppax:increase4)
+result <- cor(x = nodes[,-1], method = "spearman")
+result[1,] # correlation of population to everything else
+result[8,] # correlation of betweenness centrality measure to everything else
+result[12,] # eigenvector (influence of a node in a network on the basis of expense / geodesic distance between pair of actors) does not matter in Pearson, but impacts total production in spearman model
+result[13,] # degree
+# katz assigns influence on the basis of  first and second degree neighbors connecting through immediate neighbors
+
 ```
 
