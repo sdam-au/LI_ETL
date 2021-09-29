@@ -106,7 +106,7 @@ tm_shape(cities_g) +
 ```
 # Pridej k hornim facetkam degree, betweenness, and gravity 
 
-# Task 5: Map betweenness and gravity values on the network
+# Task 5: Map centrality measures onto the network
 ```{r measures}
 # Get cities with the 20 highest degree values
 top_20_deg <- cities %>% 
@@ -404,19 +404,19 @@ tm_shape(cities[cities$X1 %in% Lire_3,]) +  # most inscriptionsin 1c AD
   tm_layout(#main.title = "AD200-300: Cities with >100 inscriptions",
             legend.outside = TRUE)
 ```
-# Summary AD 0 - 100
+## Summary AD 0 - 100
 ```{r}
 current.mode <- tmap_mode("plot")
 tmap_arrange(degree_100, bb_100, gravity_100, expense_100, asp = NA)
 tmap_mode(current.mode)
 ```
-# Summary AD 100 - 200
+## Summary AD 100 - 200
 ```{r}
 current.mode <- tmap_mode("plot")
 tmap_arrange(degree_200, bb_200, gravity_200, expense_200, asp = NA)
 tmap_mode(current.mode)
 ```
-# Summary AD 200 - 300
+## Summary AD 200 - 300
 ```{r}
 current.mode <- tmap_mode("plot")
 tmap_arrange(degree_300, bb_300, gravity_300, expense_300, asp = NA)
@@ -596,7 +596,7 @@ cities %>%
 ```
 
 
-# LIRE inscriptions
+# Task 8: LIRE inscriptions - check types
 
 ```{r}
 colnames(provinces)
@@ -661,7 +661,7 @@ tm_shape(cities[cities$X1 %in% Lire_2,]) +  # most inscriptionsin 1c AD
 
 
 
-# Correlation
+# Task 9: Correlation
 ```{r}
 nodes <- cities %>% 
   st_drop_geometry() %>% 
@@ -672,6 +672,9 @@ result[8,] # correlation of betweenness centrality measure to everything else
 result[12,] # eigenvector (influence of a node in a network on the basis of expense / geodesic distance between pair of actors) does not matter in Pearson, but impacts total production in spearman model
 result[13,] # degree
 # katz assigns influence on the basis of  first and second degree neighbors connecting through immediate neighbors
+nodes[nodes$increase1ppax > 10,]
 
+firstc_increasepax <- cor(x = nodes[nodes$increase1ppax > 10,-1], method = "pearson")
+firstc_increasepax[1,]
 ```
 
