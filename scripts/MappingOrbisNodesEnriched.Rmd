@@ -70,7 +70,9 @@ plot(provinces$geometry);plot(cities$geometry, add=TRUE)
 ```
 
 # Task 4a: Make a neat map of cities with inscription numbers over time
-```{r view-flats, fig.width = 12}
+
+Let's see where the biggest inscription producers are over time
+```{r map-cities, fig.width = 12, eval = FALSE}
 library(tmap)
 tmap_options(limits = c(facets.view = 5)) # we want to view 5 periods
 tmap_mode(mode = "view" )
@@ -676,5 +678,63 @@ nodes[nodes$increase1ppax > 10,]
 
 firstc_increasepax <- cor(x = nodes[nodes$increase1ppax > 10,-1], method = "pearson")
 firstc_increasepax[1,]
+```
+
+
+# Task 10: Display the most common inscription types over time in the top-producing provinces
+
+```{r}
+colnames(lire_sm)
+lire_sm$not_after[1]
+lire_sm$not_before[1]
+testdate <- lire_sm %>% 
+  st_drop_geometry() %>% 
+  select(EDH.ID,not_before,not_after) %>% 
+  filter(not_before != "NaN", not_after != "NaN") %>% 
+  slice(1:20)
+  #filter(not_before == "NaN" | not_after == "Nan") # %>%  515 have not postquem
+  #filter(not_before <= 0 , not_after <= 100)
+  
+  
+library(lubridate)
+#   testdate %>% 
+# interval(start = )
+  
+  
+int1 <- lire_sm$not_before[1]:lire_sm$not_after[1]
+
+century0 <- -100:0
+century1 <- 1:100
+century2 <- 101:200
+century3 <- 201:300
+century4 <- 301:400
+
+testdate %>% 
+  mutate(cent0 = any(testdate$not_before:testdate$not_before %in% century0),
+    cent1 = any(testdate$not_before:testdate$not_before %in% century1),                      cent2 = any(testdate$not_before:testdate$not_before %in% century2),
+    cent3 = any(testdate$not_before:testdate$not_before %in% century3),
+     cent4 = any(testdate$not_before:testdate$not_before %in% century4))
+```
+
+
+```{r}
+
+lire_sm %>% 
+  st_drop_geometry() %>% 
+  filter(province_label_clean == "Achaia") %>% 
+  group_by(type_of_inscription_auto) %>% 
+  count() %>% 
+  arrange(desc(n)) %>% 
+  head(4) 
+  
+?interval()
+
+lire_sm %>% 
+  st_drop_geometry() %>% 
+  ggplot(aes(x= type_of_inscription_auto)) %>% 
+  geom_bar(aes(fill=type_of_inscription_auto), position = "dodge") %>% 
+  facet_wrap(facets = province_label_clean) %>% 
+  labs(x = "Dominant inscription type", y = "Count", fill = "") +
+  scale_fill_viridis_d() # add colour deficient friendly palette
 ```
 
