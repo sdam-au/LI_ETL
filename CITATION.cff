@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+references:
+  - type: "software"
+authors: 
+  - affiliation: "Aarhus University"
+    family-names: "Heřmánková"
+    given-names: "Petra"
+    orcid: "https://orcid.org/0000-0002-6349-0540"
+  - affiliation: "Aarhus University"
+    family-names: "Kaše"
+    given-names: "Vojtěch"
+    orcid: "https://orcid.org/0000-0002-6601-1605"
+  - affiliation: "Aarhus University"
+    family-names: "Sobotková"
+    given-names: "Adéla"
+    orcid: "https://orcid.org/0000-0002-4541-3963"
+license: CC-BY-SA 4.0
+repository-code: "https://github.com/sdam-au/LIRE_ETL"
+title: "LIRE"
+version: 1.2
+doi: 10.5281/zenodo.5776109
+date-released: 2021-07-06
+abstract: "LIRE dataset (Latin Inscriptions of the Roman Empire) is an aggregate of EDH and EDCS epigraphic datasets, focusing on inscriptions which are (a) geolocated, (b) within the borders of the Roman Empire in its highest extent, (c) dated (d) in the dating interval intersecting the period from 50 BC to 350 AD."
+keywords:
+  - "digital epigraphy"
+  - "Latin inscriptions"
+  - "digital history"
+  - "Roman history"
+  - "dataset"

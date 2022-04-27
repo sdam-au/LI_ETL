@@ -43,7 +43,7 @@ There is also an unfiltered version of the aggregated dataset, currently availab
 
 After you clone the repository, install python virtual environment by going to terminal and running the following commands:
 ```bash
-INTERPRTER=which python # or any other interpreter, e.g. $HOME/.local/lib/python-3.9.7/bin/python3
+INTERPRTER="which python" # or any other interpreter, e.g. $HOME/.local/lib/python-3.9.7/bin/python3
 virtualenv lire_venv --python=$INTERPRETER
 test -f requirements.txt && $VENVNAME/bin/python -m pip install -r requirements.txt # install anything in requirements.txt
 lire_venv/bin/python -m ipykernel install --user --name=$VENVNAME # add to kernels
