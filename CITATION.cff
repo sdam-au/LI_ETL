@@ -15,7 +15,7 @@ authors:
     family-names: "Sobotková"
     given-names: "Adéla"
     orcid: "https://orcid.org/0000-0002-4541-3963"
-license: CC-BY-SA 4.0
+license: cc-by-nc-4.0
 repository-code: "https://github.com/sdam-au/LIRE_ETL"
 title: "LIRE"
 version: 1.2
