@@ -1,0 +1,22 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+setwd(dirname(dirname(rstudioapi::getSourceEditorContext()$path)))
+library(jsonlite)
+#library(rjson)
+library(tidyverse)
+
+```
+
+Type any R code in the chunk, for example:
+```{r}
+list_json <- jsonlite::fromJSON("data/EDCS_sample.json")
+EDCS_sample = as_tibble(list_json)
+```
+
+```{r}
+extra_text <- unlist(EDCS_sample$extra_text)
+```
