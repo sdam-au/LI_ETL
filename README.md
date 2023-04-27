@@ -9,8 +9,7 @@
 
 ## Description
 
-This repository serves for generation of two datasets: LIST (Latin Inscriptions in Space and Time, https://zenodo.org/record/7587556#.ZEor6i9BxhF) and LIRE (Latin Inscriptions of the Roman Empire, https://zenodo.org/record/5776109#.ZEosBC9BxpQ), where the second is a filtered, spatio-temporally more restricted, version of the first one. Both str aggregated of EDH and EDCS epigraphic datasets enriched by additional metadata. The repository does not
-contain the datasets as such, but the scripts used to generating them (see the scripts subdirectory). 
+This repository serves for generation of two datasets: LIST (Latin Inscriptions in Space and Time, https://zenodo.org/record/7587556#.ZEor6i9BxhF) and LIRE (Latin Inscriptions of the Roman Empire, https://zenodo.org/record/5776109#.ZEosBC9BxpQ), where the second is a filtered, spatio-temporally more restricted, version of the first one. Both were created by aggregation of EDH and EDCS epigraphic datasets enriched by additional metadata. The repository does not contain the datasets as such, but the scripts used to generating them (see the scripts subdirectory). 
 
 For inscriptions which are covered by both EDCS and EDH source datasets, it contains attributes from both of them. In cases in which an inscription is available only in one dataset, it contains attributes only from that one dataset. Some crucial attributes shared by both datasets:
 * `clean_text_interpretive_word`: text of the inscription
