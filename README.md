@@ -18,7 +18,7 @@ For inscriptions which are covered by both EDCS and EDH source datasets, it cont
 * `geography` : latitude/longitude defining geospatial position in form of a point
 In the case of other metadata attributes, the information cannot be easily transferred between the two sources. For instance, EDCS has the attribute `inscr_type` which should bear approximately the same information as `type_of_inscription_clean` in EDH. However, the `inscr_type` attribute from EDCS uses a different classification system than EDH, relies on latin labels of inscription types etc. This project overcomes this issue by developing and applying a machine learning classification model (see `scripts/CLASSIFIER_TRAINING&TESTING.ipynb` and `scripts/CLASSIFIER-APPLICATION.ipynb`). This way the dataset is enriched by two additional attributes: `type_of_inscription_auto` and `type_of_inscription_prob`.
 
-For an overview of all metadata, see `LIST_v0.4_metadata.csv`. For an overview of the data, see the jupyter notebook `5_DATA-OVERVIEW.ipynb` in the scripts subdirectory.
+For an overview of all metadata, see `LIST_v0.4_metadata.csv`. For an overview of the data, see the jupyter notebook `5_DATA-OVERVIEW.ipynb` in the scripts subdirectory. 
 
 The final datasets are available via Zenodo:
 * LIST dataset: https://zenodo.org/record/7870085#.ZEoyjy9BxhE (using geopandas library, you can load the data directly into your Python environment using the following command: `LIST = gpd.read_parquet("https://zenodo.org/record/7870085/files/LIST_v0-4.parquet?download=1")`)
