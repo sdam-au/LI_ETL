@@ -3,25 +3,26 @@ message: "If you use this software, please cite it as below."
 references:
   - type: "software"
 authors: 
-  - affiliation: "Aarhus University"
+  affiliation: "Aarhus University & University of West Bohemia"
+      family-names: "Kaše"
+      given-names: "Vojtěch"
+      orcid: "https://orcid.org/0000-0002-6601-1605"-
+  affiliation: "Aarhus University"
     family-names: "Heřmánková"
     given-names: "Petra"
     orcid: "https://orcid.org/0000-0002-6349-0540"
-  - affiliation: "Aarhus University"
-    family-names: "Kaše"
-    given-names: "Vojtěch"
-    orcid: "https://orcid.org/0000-0002-6601-1605"
   - affiliation: "Aarhus University"
     family-names: "Sobotková"
     given-names: "Adéla"
     orcid: "https://orcid.org/0000-0002-4541-3963"
 license: cc-by-nc-4.0
 repository-code: "https://github.com/sdam-au/LIRE_ETL"
-title: "LIRE"
-version: 1.2
-doi: 10.5281/zenodo.5776109
-date-released: 2021-07-06
-abstract: "LIRE dataset (Latin Inscriptions of the Roman Empire) is an aggregate of EDH and EDCS epigraphic datasets, focusing on inscriptions which are (a) geolocated, (b) within the borders of the Roman Empire in its highest extent, (c) dated (d) in the dating interval intersecting the period from 50 BC to 350 AD."
+title: "LIST"
+version: 0.4
+doi: 10.5281/zenodo.7870085
+date-released: 2023-04-27
+abstract: "This repository serves for generation of two datasets: LIST (Latin Inscriptions in Space and Time, https://zenodo.org/record/7587556#.ZEor6i9BxhF) and LIRE (Latin Inscriptions of the Roman Empire, https://zenodo.org/record/5776109#.ZEosBC9BxpQ), where the second is a filtered, spatio-temporally more restricted, version of the first one. Both str aggregated of EDH and EDCS epigraphic datasets enriched by additional metadata. The repository does not
+contain the datasets as such, but the scripts used to generating them (see the scripts subdirectory)."
 keywords:
   - "digital epigraphy"
   - "Latin inscriptions"
