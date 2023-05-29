@@ -1,5 +1,9 @@
 ipython
 jupyter
+sddk
+tempun
+geopandas
+pandas
 scikit-learn
 tabulate
 nltk
@@ -8,8 +12,7 @@ pyinterval
 google-auth
 gspread
 gspread_dataframe
-sddk
-tempun
+
 
 
 # more restrictive, if needed:
