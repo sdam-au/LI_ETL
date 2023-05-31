@@ -8,11 +8,18 @@ handy capabilities to work with the [R Markdown](https://www.jetbrains.com/help/
 To [add](https://www.jetbrains.com/help/pycharm/r-markdown.html#add-code-chunk) a new R chunk,
 ```{r}
 library(jsonlite)
-
+library(sfarrow)
 ```
-position the caret at any line or the code chunk, then click "+".
 
-The code chunk appears:
+
+```{r}
+LIST = st_read_parquet("LI_ETL/data/large_data/LIST_v0-5.parquet")
+#LIST_sample = st_read_parquet("LI_ETL/data/large_data/LIST_sample.parquet")
+```
+
+
+
+
 ```{r}
 json_string <- '[{"persname": {"name": [{"@type": "praenomen", "#text": "C."}, {"@type": "nomen", "#text": "Iulius"}, {"@type": "cognomen", "#text": "Capito*"}]}, "@sex": "M", "@{http://www.w3.org/XML/1998/namespace}id": "HD057920_1"}, {"persname": {"name": [{"@type": "praenomen", "#text": "C."}, {"@type": "nomen", "#text": "Iulius"}, {"@type": "cognomen", "#text": "Maximus+"}]}, "@sex": "M", "@{http://www.w3.org/XML/1998/namespace}id": "HD057920_2"}]'
 
@@ -22,6 +29,6 @@ Type any R code in the chunk, for example:
 ```{r}
 parsed_json <- fromJSON(json_string)
 ```
+```{r}
 
-Now, click the **Run** button on the chunk toolbar to [execute](https://www.jetbrains.com/help/pycharm/r-markdown.html#run-r-code) the chunk code. The result should be placed under the chunk.
-Click the **Knit and Open Document** to build and preview an output.
+```
