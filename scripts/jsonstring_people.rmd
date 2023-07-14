@@ -13,8 +13,8 @@ library(sfarrow)
 
 
 ```{r}
-#LIST = st_read_parquet("LI_ETL/data/large_data/LIST_v0-5.parquet")
-LIST_sample = st_read_parquet("LI_ETL/data/large_data/LIST_sample.parquet")
+LIST = st_read_parquet("/Users/kasev/Projects/LI_ETL/data/large_data/LIST_v0-5.parquet")
+#LIST_sample = st_read_parquet("LI_ETL/data/large_data/LIST_sample.parquet")
 ```
 
 
