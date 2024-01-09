@@ -4,7 +4,10 @@
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/lire_venv" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.9 (base)" jdkType="Python SDK" />
+    <content url="file://$MODULE_DIR$/../sddk/sddk_py">
+      <sourceFolder url="file://$MODULE_DIR$/../sddk/sddk_py" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>
